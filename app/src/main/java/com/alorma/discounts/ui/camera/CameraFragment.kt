@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.os.Bundle
+import android.util.Log
 import android.util.Rational
 import android.util.Size
 import android.view.LayoutInflater
@@ -11,15 +12,14 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.CameraX
-import androidx.camera.core.Preview
-import androidx.camera.core.PreviewConfig
+import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.alorma.discounts.R
 import kotlinx.android.synthetic.main.camera_fragment.*
+import java.io.File
 
 class CameraFragment : Fragment() {
     private lateinit var viewModel: CameraViewModel
@@ -48,7 +48,6 @@ class CameraFragment : Fragment() {
         }
     }
 
-
     private fun startCamera() {
         val cameraSize = resources.getDimensionPixelOffset(R.dimen.camera_size)
         val previewConfig = PreviewConfig.Builder().apply {
@@ -62,7 +61,40 @@ class CameraFragment : Fragment() {
             updateTransform()
         }
 
-        CameraX.bindToLifecycle(viewLifecycleOwner, preview)
+        val imageCaptureConfig = ImageCaptureConfig.Builder()
+            .apply {
+                setTargetAspectRatio(Rational(1, 1))
+                setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
+            }.build()
+
+        val imageCapture = ImageCapture(imageCaptureConfig)
+
+        captureButton.setOnClickListener {
+
+            val file = File(
+                requireContext().cacheDir,
+                "${System.currentTimeMillis()}.jpg"
+            )
+            imageCapture.takePicture(file, object : ImageCapture.OnImageSavedListener {
+                override fun onError(
+                    error: ImageCapture.UseCaseError,
+                    message: String, exc: Throwable?
+                ) {
+                    val msg = "Photo capture failed: $message"
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                    Log.e("CameraXApp", msg)
+                    exc?.printStackTrace()
+                }
+
+                override fun onImageSaved(file: File) {
+                    val msg = "Photo capture succeeded: ${file.absolutePath}"
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                    Log.d("CameraXApp", msg)
+                }
+            })
+        }
+
+        CameraX.bindToLifecycle(viewLifecycleOwner, preview, imageCapture)
     }
 
     private fun updateTransform() {
@@ -73,7 +105,7 @@ class CameraFragment : Fragment() {
         val centerY = viewFinder.height / 2f
 
         // Correct preview output to account for display rotation
-        val rotationDegrees = when(viewFinder.display.rotation) {
+        val rotationDegrees = when (viewFinder.display.rotation) {
             Surface.ROTATION_0 -> 0
             Surface.ROTATION_90 -> 90
             Surface.ROTATION_180 -> 180
