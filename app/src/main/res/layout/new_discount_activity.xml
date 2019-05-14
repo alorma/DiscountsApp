@@ -37,7 +37,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,16 +46,9 @@
             app:helperText="Mandatory"
             android:layout_margin="16dp"
             android:hint="Code"
-            android:id="@+id/codeField">
+            android:id="@+id/codeField"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2393749274589729852"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,16 +57,9 @@
             app:helperText="Optional"
             android:layout_margin="16dp"
             android:hint="Place"
-            android:id="@+id/placeField">
+            android:id="@+id/placeField"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="La sirena"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,14 +68,7 @@
             app:helperText="Optional"
             android:layout_margin="16dp"
             android:hint="Expiration date"
-            android:id="@+id/expirationField">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="02 / 06 / 2019"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+            android:id="@+id/expirationField"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:layout_width="wrap_content"
