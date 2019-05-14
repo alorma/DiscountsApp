@@ -46,7 +46,8 @@
             app:helperText="Mandatory"
             android:layout_margin="16dp"
             android:hint="Code"
-            android:id="@+id/codeField"/>
+            android:id="@+id/codeField"
+            style="@style/SelectorField"/>
 
     <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
@@ -57,7 +58,8 @@
             app:helperText="Optional"
             android:layout_margin="16dp"
             android:hint="Place"
-            android:id="@+id/placeField"/>
+            android:id="@+id/placeField"
+            style="@style/SelectorField"/>
 
     <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
@@ -68,7 +70,8 @@
             app:helperText="Optional"
             android:layout_margin="16dp"
             android:hint="Expiration date"
-            android:id="@+id/expirationField"/>
+            android:id="@+id/expirationField"
+            style="@style/SelectorField"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:layout_width="wrap_content"

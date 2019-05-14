@@ -17,6 +17,8 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
+    <style name="SelectorField" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
     <style name="DiscountsListBottomBarStyle" parent="Widget.MaterialComponents.BottomAppBar.Colored">
         <item name="backgroundTint">@color/colorPrimary</item>
     </style>
