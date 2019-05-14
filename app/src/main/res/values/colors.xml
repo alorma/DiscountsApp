@@ -2,5 +2,6 @@
 <resources>
     <color name="colorPrimary">#ee8a00</color>
     <color name="colorAccent">#9cda03</color>
-    <color name="colorSurface">#ffffff</color>
+
+    <color name="surface_light">#f2f2f2</color>
 </resources>
