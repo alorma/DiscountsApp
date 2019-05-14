@@ -3,11 +3,11 @@ package com.alorma.discounts.ui.newdiscount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.alorma.discounts.R
+import com.alorma.discounts.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.new_discount_activity.*
 
-class NewDiscountActivity : AppCompatActivity() {
+class NewDiscountActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

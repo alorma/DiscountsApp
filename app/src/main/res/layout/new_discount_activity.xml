@@ -37,7 +37,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.alorma.discounts.ui.widget.SelectorFieldView
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,13 @@
             android:layout_margin="16dp"
             android:hint="Code"
             android:id="@+id/codeField"
-            style="@style/SelectorField"/>
+            style="@style/SelectorField">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="78274982749827"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
