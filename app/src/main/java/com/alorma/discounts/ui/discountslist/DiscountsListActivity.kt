@@ -2,33 +2,32 @@ package com.alorma.discounts.ui.discountslist
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.observe
 import com.alorma.discounts.R
 import com.alorma.discounts.data.entity.DiscountEntity
 import com.alorma.discounts.ui.base.BaseActivity
-import com.alorma.discounts.ui.newdiscount.NewDiscountActivity
 import kotlinx.android.synthetic.main.discounts_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DiscountsListActivity : BaseActivity() {
-
+class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
     private val discountsViewModel by viewModel<DiscountsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.discounts_list)
 
-        discountsViewModel.discounts.observe(this) {
-            onDiscounts(it)
-        }
+        discountsViewModel.view = this
+        discountsViewModel.onInit()
 
         addDiscount.setOnClickListener {
-            val intent = NewDiscountActivity.build(this)
-            startActivity(intent)
+            discountsViewModel.onCreateNew()
+            /*
+                val intent = NewDiscountActivity.build(this)
+                startActivity(intent)
+            */
         }
     }
 
-    private fun onDiscounts(it: List<DiscountEntity>) {
-        Toast.makeText(this, "Items: ${it.size}", Toast.LENGTH_SHORT).show()
+    override fun showDiscounts(discounts: List<DiscountEntity>) {
+        Toast.makeText(this, "Items: ${discounts.size}", Toast.LENGTH_SHORT).show()
     }
 }
