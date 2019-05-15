@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.alorma.discounts.R
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -58,7 +60,10 @@ class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 class SectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(discountViewModel: DiscountViewModel.Section) {
-        itemView.findViewById<TextView>(android.R.id.text1).text = discountViewModel.title
+        itemView.findViewById<TextView>(android.R.id.text1).apply {
+            text = discountViewModel.title
+            setTextColor(ContextCompat.getColor(context, R.color.colorSecondary))
+        }
     }
 }
 
