@@ -4,40 +4,69 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class DiscountsAdapter : ListAdapter<DiscountViewModel, DiscountHolder>(DIFF) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(android.R.layout.simple_list_item_2, parent, false)
+class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        return DiscountHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: DiscountHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
+    var items: List<DiscountViewModel> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<DiscountViewModel>() {
-            override fun areItemsTheSame(oldItem: DiscountViewModel, newItem: DiscountViewModel): Boolean =
-                oldItem.code == newItem.code
-
-            override fun areContentsTheSame(oldItem: DiscountViewModel, newItem: DiscountViewModel): Boolean =
-                oldItem.date == newItem.date
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            VIEW_SECTION -> {
+                val view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
+                SectionHolder(view)
+            }
+            VIEW_ITEM -> {
+                val view = inflater.inflate(android.R.layout.simple_list_item_2, parent, false)
+                DiscountHolder(view)
+            }
+            else -> {
+                EmptyHolder(View(parent.context))
+            }
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is SectionHolder -> holder.bind(getItem(position) as DiscountViewModel.Section)
+            is DiscountHolder -> holder.bind(getItem(position) as DiscountViewModel.Item)
+        }
+    }
+
+    override fun getItemCount(): Int = items.size
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DiscountViewModel.Section -> VIEW_SECTION
+            is DiscountViewModel.Item -> VIEW_ITEM
+        }
+    }
+
+    private fun getItem(position: Int): DiscountViewModel = items[position]
+
+    companion object {
+        private const val VIEW_SECTION = 1
+        private const val VIEW_ITEM = 2
+    }
+}
+
+class SectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun bind(discountViewModel: DiscountViewModel.Section) {
+        itemView.findViewById<TextView>(android.R.id.text1).text = discountViewModel.title
+    }
 }
 
 class DiscountHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(discountViewModel: DiscountViewModel) {
+    fun bind(discountViewModel: DiscountViewModel.Item) {
         itemView.findViewById<TextView>(android.R.id.text1).text = discountViewModel.title
         itemView.findViewById<TextView>(android.R.id.text2).text = discountViewModel.code
     }
-
 }
+
+class EmptyHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

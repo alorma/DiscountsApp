@@ -10,6 +10,7 @@ data class DiscountEntity(
     @PrimaryKey val code: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "place") val place: String,
+    @ColumnInfo(name = "used") val used: Boolean,
     @ColumnInfo(name = "expiration") val expirationDate: Long
 ) {
 

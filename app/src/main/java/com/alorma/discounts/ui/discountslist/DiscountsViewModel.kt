@@ -7,6 +7,7 @@ import com.alorma.discounts.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 class DiscountsViewModel(
     private val discountsDao: DiscountsDao,
@@ -31,6 +32,7 @@ class DiscountsViewModel(
                 UUID.randomUUID().toString(),
                 "Discount X",
                 "La sirena",
+                Random.nextBoolean(),
                 System.currentTimeMillis() + TimeUnit.DAYS.toMillis(4)
             )
             discountsDao.insert(entity)

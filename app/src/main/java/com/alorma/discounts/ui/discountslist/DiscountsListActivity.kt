@@ -32,6 +32,6 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
     }
 
     override fun showDiscounts(discounts: List<DiscountViewModel>) {
-        adapter.submitList(discounts)
+        adapter.items = discounts
     }
 }
