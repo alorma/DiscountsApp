@@ -8,7 +8,7 @@ import com.alorma.discounts.data.entity.DiscountEntity
 @Dao
 interface DiscountsDao {
 
-    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME}")
+    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} ORDER BY expiration DESC")
     suspend fun getAll(): List<DiscountEntity>
 
     @Insert
