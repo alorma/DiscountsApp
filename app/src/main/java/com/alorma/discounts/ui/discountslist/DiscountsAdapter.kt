@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alorma.discounts.R
+import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -24,10 +25,7 @@ class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
                 SectionHolder(view)
             }
-            VIEW_ITEM -> {
-                val view = inflater.inflate(android.R.layout.simple_list_item_2, parent, false)
-                DiscountHolder(view)
-            }
+            VIEW_ITEM -> DiscountHolder.build(parent)
             else -> {
                 EmptyHolder(View(parent.context))
             }
@@ -69,8 +67,19 @@ class SectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 class DiscountHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(discountViewModel: DiscountViewModel.Item) {
-        itemView.findViewById<TextView>(android.R.id.text1).text = discountViewModel.title
-        itemView.findViewById<TextView>(android.R.id.text2).text = discountViewModel.code
+        itemView.code.text = discountViewModel.code
+        itemView.title.text = discountViewModel.title
+        itemView.expiration.text = discountViewModel.date
+        itemView.place.text = discountViewModel.place
+    }
+
+    companion object {
+
+        fun build(parent: ViewGroup): DiscountHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.discount_row, parent, false)
+            return DiscountHolder(view)
+        }
     }
 }
 
