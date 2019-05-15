@@ -1,10 +1,14 @@
 package com.alorma.discounts.ui.discountslist
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.alorma.discounts.data.dao.DiscountsDao
+import com.alorma.discounts.ui.base.BaseViewModel
 
-class DiscountsViewModel : ViewModel() {
+class DiscountsViewModel(
+    private val discountsDao: DiscountsDao
+) : BaseViewModel() {
 
-    init {
-
+    val discounts = liveData {
+        emit(discountsDao.getAll())
     }
 }
