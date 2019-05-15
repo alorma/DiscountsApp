@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.discounts_list.*
 
 class DiscountsListActivity : BaseActivity() {
 
+    private val discountsViewModel: DiscountsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.discounts_list)
