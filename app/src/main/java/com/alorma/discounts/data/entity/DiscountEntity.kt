@@ -9,6 +9,7 @@ import com.alorma.discounts.data.entity.DiscountEntity.Companion.TABLE_NAME
 data class DiscountEntity(
     @PrimaryKey val code: String,
     @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "place") val place: String,
     @ColumnInfo(name = "expiration") val expirationDate: Long
 ) {
 

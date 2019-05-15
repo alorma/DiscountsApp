@@ -28,6 +28,7 @@ class DiscountsViewModel(
             val entity = DiscountEntity(
                 UUID.randomUUID().toString(),
                 "Discount X",
+                "La sirena",
                 System.currentTimeMillis() + TimeUnit.DAYS.toMillis(4)
             )
             discountsDao.insert(entity)
