@@ -9,7 +9,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class DiscountsViewModel(
-    private val discountsDao: DiscountsDao
+    private val discountsDao: DiscountsDao,
+    private val mapper: DiscountViewMapper
 ) : BaseViewModel<DiscountsViewModel.View>() {
 
     fun onInit() {
@@ -20,7 +21,8 @@ class DiscountsViewModel(
 
     private suspend fun loadItems() {
         val discountItems = discountsDao.getAll()
-        view?.showDiscounts(discountItems)
+        val models = mapper.map(discountItems)
+        view?.showDiscounts(models)
     }
 
     fun onCreateNew() {
@@ -37,6 +39,6 @@ class DiscountsViewModel(
     }
 
     interface View : BaseView {
-        fun showDiscounts(discounts: List<DiscountEntity>)
+        fun showDiscounts(discounts: List<DiscountViewModel>)
     }
 }
