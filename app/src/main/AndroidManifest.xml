@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".ui.newdiscount.NewDiscountActivity"/>
+        <activity android:name=".ui.discountdetail.DiscountDetailActivity"/>
 
     </application>
 

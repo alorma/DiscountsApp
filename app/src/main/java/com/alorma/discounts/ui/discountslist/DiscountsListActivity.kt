@@ -1,11 +1,10 @@
 package com.alorma.discounts.ui.discountslist
 
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseActivity
+import com.alorma.discounts.ui.discountdetail.DiscountDetailActivity
 import com.alorma.discounts.ui.newdiscount.NewDiscountActivity
 import kotlinx.android.synthetic.main.discounts_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,12 +34,13 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
         adapter.items = discounts
     }
 
-    override fun showBitmap(await: Bitmap) {
-        Toast.makeText(this, "Bitmap", Toast.LENGTH_SHORT).show()
-    }
-
     override fun openNewDiscount() {
         val intent = NewDiscountActivity.build(this)
+        startActivity(intent)
+    }
+
+    override fun openDetail(code: String) {
+        val intent = DiscountDetailActivity.buildIntent(this, code)
         startActivity(intent)
     }
 }
