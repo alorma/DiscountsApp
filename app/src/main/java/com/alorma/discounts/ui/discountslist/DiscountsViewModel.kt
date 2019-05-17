@@ -30,6 +30,10 @@ class DiscountsViewModel(
         view?.openNewDiscount()
     }
 
+    fun onDiscountClick(discount: DiscountViewModel) {
+
+    }
+
     interface View : BaseView {
         fun showDiscounts(discounts: List<DiscountViewModel>)
 

@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    var callback: ((DiscountViewModel) -> Unit)? = null
+
     var items: List<DiscountViewModel> = listOf()
         set(value) {
             field = value
@@ -25,7 +27,9 @@ class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
                 SectionHolder(view)
             }
-            VIEW_ITEM -> DiscountHolder.build(parent)
+            VIEW_ITEM -> DiscountHolder.build(parent) {
+                callback?.invoke(it)
+            }
             else -> {
                 EmptyHolder(View(parent.context))
             }
@@ -65,20 +69,28 @@ class SectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 }
 
-class DiscountHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class DiscountHolder(
+    itemView: View,
+    private val callback: ((DiscountViewModel) -> Unit)?
+) : RecyclerView.ViewHolder(itemView) {
     fun bind(discountViewModel: DiscountViewModel.Item) {
         itemView.code.text = discountViewModel.code
         itemView.title.text = discountViewModel.title
         itemView.expiration.text = discountViewModel.date
         itemView.place.text = discountViewModel.place
+
+        itemView.setOnClickListener { callback?.invoke(discountViewModel) }
     }
 
     companion object {
 
-        fun build(parent: ViewGroup): DiscountHolder {
+        fun build(
+            parent: ViewGroup,
+            callback: ((DiscountViewModel) -> Unit)?
+        ): DiscountHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.discount_row, parent, false)
-            return DiscountHolder(view)
+            return DiscountHolder(view, callback)
         }
     }
 }

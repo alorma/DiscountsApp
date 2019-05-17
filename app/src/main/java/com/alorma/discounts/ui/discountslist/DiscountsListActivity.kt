@@ -17,6 +17,7 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.discounts_list)
 
+        adapter.callback = { discountsViewModel.onDiscountClick(it) }
         discountsViewModel.view = this
         discountsViewModel.onInit()
 
