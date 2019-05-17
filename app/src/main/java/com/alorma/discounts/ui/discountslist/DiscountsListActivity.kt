@@ -1,6 +1,8 @@
 package com.alorma.discounts.ui.discountslist
 
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseActivity
@@ -31,6 +33,10 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
 
     override fun showDiscounts(discounts: List<DiscountViewModel>) {
         adapter.items = discounts
+    }
+
+    override fun showBitmap(await: Bitmap) {
+        Toast.makeText(this, "Bitmap", Toast.LENGTH_SHORT).show()
     }
 
     override fun openNewDiscount() {

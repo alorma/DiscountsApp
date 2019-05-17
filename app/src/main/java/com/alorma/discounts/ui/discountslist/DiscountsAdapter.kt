@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var callback: ((DiscountViewModel) -> Unit)? = null
+    var callback: ((DiscountViewModel.Item) -> Unit)? = null
 
     var items: List<DiscountViewModel> = listOf()
         set(value) {
@@ -71,7 +71,7 @@ class SectionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 class DiscountHolder(
     itemView: View,
-    private val callback: ((DiscountViewModel) -> Unit)?
+    private val callback: ((DiscountViewModel.Item) -> Unit)?
 ) : RecyclerView.ViewHolder(itemView) {
     fun bind(discountViewModel: DiscountViewModel.Item) {
         itemView.code.text = discountViewModel.code
@@ -86,7 +86,7 @@ class DiscountHolder(
 
         fun build(
             parent: ViewGroup,
-            callback: ((DiscountViewModel) -> Unit)?
+            callback: ((DiscountViewModel.Item) -> Unit)?
         ): DiscountHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.discount_row, parent, false)
