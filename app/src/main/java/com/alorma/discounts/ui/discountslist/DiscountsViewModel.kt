@@ -40,11 +40,11 @@ class DiscountsViewModel(
                 val writer = MultiFormatWriter()
                 var matrix: BitMatrix? = null
 
-                val width = 400
-                val height = 200
+                val width = 500
+                val height = 100
 
                 try {
-                    matrix = writer.encode(discount.code, BarcodeFormat.QR_CODE, width, height)
+                    matrix = writer.encode("99501280211090169339", BarcodeFormat.CODE_128, width, height)
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }
