@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseActivity
+import com.alorma.discounts.ui.newdiscount.NewDiscountActivity
 import kotlinx.android.synthetic.main.discounts_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,10 +22,6 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
 
         addDiscount.setOnClickListener {
             discountsViewModel.onCreateNew()
-            /*
-                val intent = NewDiscountActivity.build(this)
-                startActivity(intent)
-            */
         }
 
         discountsList.adapter = adapter
@@ -33,5 +30,10 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
 
     override fun showDiscounts(discounts: List<DiscountViewModel>) {
         adapter.items = discounts
+    }
+
+    override fun openNewDiscount() {
+        val intent = NewDiscountActivity.build(this)
+        startActivity(intent)
     }
 }

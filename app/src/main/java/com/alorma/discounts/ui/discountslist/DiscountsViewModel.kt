@@ -27,20 +27,12 @@ class DiscountsViewModel(
     }
 
     fun onCreateNew() {
-        viewModelScope.launch {
-            val entity = DiscountEntity(
-                UUID.randomUUID().toString(),
-                "Discount X",
-                "La sirena",
-                Random.nextBoolean(),
-                System.currentTimeMillis() + TimeUnit.DAYS.toMillis(4)
-            )
-            discountsDao.insert(entity)
-            loadItems()
-        }
+        view?.openNewDiscount()
     }
 
     interface View : BaseView {
         fun showDiscounts(discounts: List<DiscountViewModel>)
+
+        fun openNewDiscount()
     }
 }
