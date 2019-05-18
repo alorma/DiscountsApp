@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.afollestad.materialdialogs.MaterialDialog
@@ -105,6 +106,10 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
     override fun close() {
         setResult(Activity.RESULT_OK)
         finish()
+    }
+
+    override fun onError(t: Throwable) {
+        Toast.makeText(this, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

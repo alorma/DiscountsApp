@@ -2,6 +2,7 @@ package com.alorma.discounts.ui.newdiscount
 
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.domain.DiscountType
+import com.alorma.discounts.domain.Result
 import com.alorma.discounts.domain.SaveDiscount
 import com.alorma.discounts.domain.usecase.SaveDiscountUseCase
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
@@ -30,6 +31,7 @@ class NewDiscountViewModel(
     }
 
     fun onSave(title: String, quantity: String) {
+        saveDiscountParams = saveDiscountParams.copy()
         viewModelScope.launch {
             if (saveDiscountParams.isValid()) {
                 val saveDiscount = SaveDiscount(
@@ -41,8 +43,12 @@ class NewDiscountViewModel(
                     title
                 )
 
-                saveDiscountUseCase.save(saveDiscount)
-                view?.close()
+                when (val it = saveDiscountUseCase.save(saveDiscount)) {
+                    is Result.Success<*> -> view?.close()
+                    is Result.Error -> {
+                        view?.onError(it.t)
+                    }
+                }
             }
         }
     }
@@ -55,6 +61,8 @@ class NewDiscountViewModel(
 
     interface View : BaseView {
         fun showBarcodeData(code: String, format: String)
+
+        fun onError(t: Throwable)
 
         fun close()
     }
