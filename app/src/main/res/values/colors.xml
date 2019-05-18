@@ -9,4 +9,6 @@
     <color name="barcode_foreground">#000000</color>
     <color name="barcode_background">#ffffff</color>
 
+    <color name="scanner_line">#00ceff</color>
+
 </resources>

@@ -13,7 +13,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/appBar">
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:title="Add discount"/>
@@ -37,7 +37,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +47,7 @@
             android:layout_margin="16dp"
             android:hint="Code"
             android:id="@+id/codeField"
-            style="@style/SelectorField">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="78274982749827"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            style="@style/SelectorField"/>
 
     <com.alorma.discounts.ui.widget.SelectorFieldView
             android:layout_width="match_parent"

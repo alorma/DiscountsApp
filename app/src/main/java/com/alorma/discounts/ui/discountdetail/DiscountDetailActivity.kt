@@ -7,7 +7,10 @@ import android.os.Bundle
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseActivity
 import com.alorma.discounts.ui.discountslist.DiscountViewModel
+import com.bumptech.glide.Glide
+import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.discount_detail_activity.*
+import net.codecision.glidebarcode.model.Barcode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscountDetailActivity : BaseActivity(), DiscountDetailViewModel.View {
@@ -26,10 +29,14 @@ class DiscountDetailActivity : BaseActivity(), DiscountDetailViewModel.View {
     override fun showDiscount(discountViewModel: DiscountViewModel.Item) {
         toolbar.title = discountViewModel.title
         code.text = discountViewModel.code
+        
+        Glide.with(this)
+            .load(Barcode("99501280211090169339", BarcodeFormat.CODE_128))
+            .into(barcodeImage)
     }
 
     override fun showBitmap(bitmap: Bitmap) {
-        barcodeImage.setImageBitmap(bitmap)
+
     }
 
     companion object {
