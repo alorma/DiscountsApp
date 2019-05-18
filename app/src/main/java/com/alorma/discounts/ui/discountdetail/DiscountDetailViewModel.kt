@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.barcode.DiscountBarcodeGenerator
 import com.alorma.discounts.data.dao.DiscountsDao
+import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountViewModel
@@ -33,7 +34,7 @@ class DiscountDetailViewModel(
     private fun loadBarcode(discountModel: DiscountViewModel.Item) {
         viewModelScope.launch {
             val bitmap = async {
-                generator.getBarcode(discountModel.code)
+                generator.getBarcode(discountModel.code, BarcodeFormat.FORMAT_CODE_128)
             }
 
             bitmap.await()?.let {

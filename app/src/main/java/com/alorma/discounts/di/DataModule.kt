@@ -6,6 +6,8 @@ import com.alorma.discounts.data.barcode.BarcodeColors
 import com.alorma.discounts.data.barcode.CameraBarcodeFormatMapper
 import com.alorma.discounts.data.barcode.DiscountBarcodeGenerator
 import com.alorma.discounts.data.barcode.DrawBarcodeFormatMapper
+import com.alorma.discounts.data.datasource.DiscountsDataSource
+import com.alorma.discounts.data.mapper.DiscountEntityMapper
 import com.alorma.discounts.data.resources.ResourcesProvider
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -21,10 +23,12 @@ val dataModule = module {
 
     single { get<DiscountsDatabase>().discountsDao() }
 
-    single { DiscountBarcodeGenerator(get()) }
+    single { DiscountBarcodeGenerator(get(), get()) }
     single { BarcodeColors(get()) }
     single { ResourcesProvider(androidApplication()) }
 
     factory { CameraBarcodeFormatMapper() }
     factory { DrawBarcodeFormatMapper() }
+    factory { DiscountsDataSource(get(), get()) }
+    factory { DiscountEntityMapper() }
 }

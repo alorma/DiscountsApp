@@ -26,21 +26,34 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
 
         newDiscountViewModel.view = this
 
+        configCode()
+        configPlace()
+        configDiscountType()
+        configExpiration()
         saveButton.setOnClickListener {
-            finish()
-        }
+            val title = titleField.editText?.text?.toString().orEmpty()
+            val quantity = quantityField.editText?.text?.toString().orEmpty()
 
+            newDiscountViewModel.onSave(title, quantity)
+        }
+    }
+
+    private fun configPlace() {
+        placeField.actionListener = {
+            // Listener to select place
+        }
+    }
+
+    private fun configCode() {
         codeField.actionListener = {
             runWithPermissions(Permission.CAMERA) {
                 val intent = BarcodeCaptureActivity.buildIntent(this)
                 startActivityForResult(intent, RC_CAPTURE_BARCODE)
             }
         }
+    }
 
-        placeField.actionListener = {
-            // Listener to select place
-        }
-
+    private fun configDiscountType() {
         val discountTypes = listOf(
             DiscountTypeViewModel("%", "percentage"),
             DiscountTypeViewModel("€", "Euro")
@@ -50,10 +63,12 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
             quantityTypeField.show(discountTypes, { discountType ->
                 discountType.symbol + " " + discountType.name
             }) {
-
+                newDiscountViewModel.onDiscountTypeSelected(it)
             }
         }
+    }
 
+    private fun configExpiration() {
         expirationField.actionListener = {
             MaterialDialog(this).show {
                 datePicker(
@@ -66,6 +81,8 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
                     val month = date.get(Calendar.MONTH)
                     val year = date.get(Calendar.YEAR)
                     this@NewDiscountActivity.expirationField.setText("$day/$month/$year")
+
+                    newDiscountViewModel.onExpirationDateChanged(date)
                 }
             }
         }
@@ -83,6 +100,11 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
                 newDiscountViewModel.onBarcodeCaptured(it)
             }
         }
+    }
+
+    override fun close() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     companion object {

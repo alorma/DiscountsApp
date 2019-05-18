@@ -29,7 +29,7 @@ class DiscountViewMapper {
 
     fun mapItem(it: DiscountEntity): DiscountViewModel.Item = DiscountViewModel.Item(
         it.code,
-        it.title,
+        it.text,
         it.place,
         it.expirationDate.toString()
     )
