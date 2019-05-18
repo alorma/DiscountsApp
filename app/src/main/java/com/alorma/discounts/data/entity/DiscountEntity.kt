@@ -8,6 +8,7 @@ import com.alorma.discounts.data.entity.DiscountEntity.Companion.TABLE_NAME
 @Entity(tableName = TABLE_NAME)
 data class DiscountEntity(
     @PrimaryKey val code: String,
+    @ColumnInfo(name = "format") val format: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "place") val place: String,
     @ColumnInfo(name = "used") val used: Boolean,
