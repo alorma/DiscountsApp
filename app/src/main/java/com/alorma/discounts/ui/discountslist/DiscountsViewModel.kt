@@ -11,16 +11,16 @@ class DiscountsViewModel(
     private val mapper: DiscountViewMapper
 ) : BaseViewModel<DiscountsViewModel.View>() {
 
-    fun onInit() {
-        viewModelScope.launch {
-            loadItems()
-        }
+    override fun start() {
+        loadItems()
     }
 
-    private suspend fun loadItems() {
-        val discountItems = discountsDao.getAll()
-        val models = mapper.map(discountItems)
-        view?.showDiscounts(models)
+    private fun loadItems() {
+        viewModelScope.launch {
+            val discountItems = discountsDao.getAll()
+            val models = mapper.map(discountItems)
+            view?.showDiscounts(models)
+        }
     }
 
     fun onCreateNew() {

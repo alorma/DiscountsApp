@@ -20,7 +20,6 @@ class DiscountsListActivity : BaseActivity(), DiscountsViewModel.View {
 
         adapter.callback = { discountsViewModel.onDiscountClick(it) }
         discountsViewModel.view = this
-        discountsViewModel.onInit()
 
         addDiscount.setOnClickListener {
             discountsViewModel.onCreateNew()
