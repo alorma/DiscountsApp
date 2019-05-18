@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class NewDiscountViewModel(
-    private val saveDiscountUseCase: SaveDiscountUseCase
+    private val saveDiscountUseCase: SaveDiscountUseCase,
+    private val newDiscountViewMapper: NewDiscountViewMapper
 ) : BaseViewModel<NewDiscountViewModel.View>() {
 
     private var saveDiscountParams: SaveDiscountParams = SaveDiscountParams()
@@ -31,7 +32,7 @@ class NewDiscountViewModel(
     }
 
     fun onSave(title: String, quantity: String) {
-        saveDiscountParams = saveDiscountParams.copy()
+        saveDiscountParams = saveDiscountParams.copy(quantity = quantity.toDoubleOrNull())
         viewModelScope.launch {
             if (saveDiscountParams.isValid()) {
                 val saveDiscount = SaveDiscount(
@@ -46,7 +47,8 @@ class NewDiscountViewModel(
                 when (val it = saveDiscountUseCase.save(saveDiscount)) {
                     is Result.Success<*> -> view?.close()
                     is Result.Error -> {
-                        view?.onError(it.t)
+                        val error = newDiscountViewMapper.mapError(it.t)
+                        view?.onError(error)
                     }
                 }
             }
@@ -62,7 +64,7 @@ class NewDiscountViewModel(
     interface View : BaseView {
         fun showBarcodeData(code: String, format: String)
 
-        fun onError(t: Throwable)
+        fun onError(error: String)
 
         fun close()
     }

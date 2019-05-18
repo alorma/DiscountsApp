@@ -108,8 +108,8 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
         finish()
     }
 
-    override fun onError(t: Throwable) {
-        Toast.makeText(this, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+    override fun onError(errorMessage: String) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
