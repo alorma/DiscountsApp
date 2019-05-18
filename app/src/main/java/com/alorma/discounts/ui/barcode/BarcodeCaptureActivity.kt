@@ -15,7 +15,7 @@ import uk.co.brightec.kbarcode.camera.OnCameraErrorListener
 
 
 class BarcodeCaptureActivity : BaseActivity(), BarcodeCaptureViewModel.View {
-    private val barcodeCaptureViewModel: BarcodeCaptureViewModel by viewModel()
+    private val barcodeCaptureViewModel by viewModel<BarcodeCaptureViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

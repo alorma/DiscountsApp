@@ -14,7 +14,7 @@ import net.codecision.glidebarcode.model.Barcode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscountDetailActivity : BaseActivity(), DiscountDetailViewModel.View {
-    private val detailViewModel: DiscountDetailViewModel by viewModel()
+    private val detailViewModel by viewModel<DiscountDetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

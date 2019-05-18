@@ -18,7 +18,7 @@ import java.util.*
 
 class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
 
-    private val newDiscountViewModel: NewDiscountViewModel by viewModel()
+    private val newDiscountViewModel by viewModel<NewDiscountViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
