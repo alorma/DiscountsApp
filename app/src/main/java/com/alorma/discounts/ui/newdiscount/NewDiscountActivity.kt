@@ -16,6 +16,11 @@ class NewDiscountActivity : BaseActivity() {
         saveButton.setOnClickListener {
             finish()
         }
+
+
+        placeField.actionListener = {
+            // Listener to select place
+        }
     }
 
     companion object {
