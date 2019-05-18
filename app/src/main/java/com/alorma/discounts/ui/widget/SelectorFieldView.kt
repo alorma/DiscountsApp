@@ -16,7 +16,7 @@ open class SelectorFieldView @JvmOverloads constructor(
     var actionListener: (() -> Unit)? = null
 
     init {
-        val editText = object : TextInputEditText(this.context, attributeSet) {
+        val editText = object : TextInputEditText(this.context) {
             override fun getDefaultEditable(): Boolean = false
         }.apply {
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)

@@ -3,7 +3,7 @@ package com.alorma.discounts.ui.newdiscount
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseViewModel
 
-class NewDiscoutViewModel : BaseViewModel<NewDiscoutViewModel.View>() {
+class NewDiscountViewModel : BaseViewModel<NewDiscountViewModel.View>() {
 
     fun onBarcodeCaptured(capture: BarcodeCaptureResultData) {
         view?.showBarcodeData(capture.code, capture.format.name)
