@@ -1,7 +1,6 @@
 package com.alorma.discounts.data.barcode
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -9,7 +8,9 @@ import com.google.zxing.common.BitMatrix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DiscountBarcodeGenerator {
+class DiscountBarcodeGenerator(
+    private val barcodeColors: BarcodeColors
+) {
 
     suspend fun getBarcode(discountCode: String): Bitmap? = withContext(Dispatchers.Default) {
         val writer = MultiFormatWriter()
@@ -29,7 +30,11 @@ class DiscountBarcodeGenerator {
             for (y in 0 until height) {
                 val offset = y * width
                 for (x in 0 until width) {
-                    pixels[offset + x] = if (matrix.get(x, y)) Color.BLACK else Color.WHITE
+                    pixels[offset + x] = if (matrix.get(x, y)) {
+                        barcodeColors.getForeground()
+                    } else {
+                        barcodeColors.getBackground()
+                    }
                 }
             }
             Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)?.apply {

@@ -2,7 +2,9 @@ package com.alorma.discounts.di
 
 import androidx.room.Room
 import com.alorma.discounts.data.DiscountsDatabase
+import com.alorma.discounts.data.barcode.BarcodeColors
 import com.alorma.discounts.data.barcode.DiscountBarcodeGenerator
+import com.alorma.discounts.data.resources.ResourcesProvider
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -17,5 +19,7 @@ val dataModule = module {
 
     single { get<DiscountsDatabase>().discountsDao() }
 
-    single { DiscountBarcodeGenerator() }
+    single { DiscountBarcodeGenerator(get()) }
+    single { BarcodeColors(get()) }
+    single { ResourcesProvider(androidApplication()) }
 }

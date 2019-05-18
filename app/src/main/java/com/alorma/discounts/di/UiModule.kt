@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModel { DiscountsViewModel(get(), get()) }
-    viewModel { DiscountDetailViewModel(get()) }
+    viewModel { DiscountDetailViewModel(get(), get(), get()) }
 }

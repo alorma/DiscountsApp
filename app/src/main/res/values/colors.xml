@@ -3,4 +3,10 @@
     <color name="colorPrimary">#ee8a00</color>
     <color name="colorSecondary">#9cda03</color>
     <color name="colorSurface">#ffffff</color>
+
+
+    <!-- Barcode colors -->
+    <color name="barcode_foreground">#000000</color>
+    <color name="barcode_background">#ffffff</color>
+
 </resources>

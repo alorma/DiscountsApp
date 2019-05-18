@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseActivity
+import com.alorma.discounts.ui.discountslist.DiscountViewModel
 import kotlinx.android.synthetic.main.discount_detail_activity.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +21,11 @@ class DiscountDetailActivity : BaseActivity(), DiscountDetailViewModel.View {
         intent?.extras?.getString(EXTRA_ID)?.let { discountCode ->
             detailViewModel.onInit(discountCode)
         }
+    }
+
+    override fun showDiscount(discountViewModel: DiscountViewModel.Item) {
+        toolbar.title = discountViewModel.title
+        code.text = discountViewModel.code
     }
 
     override fun showBitmap(bitmap: Bitmap) {

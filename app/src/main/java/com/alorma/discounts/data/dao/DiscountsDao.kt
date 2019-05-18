@@ -11,6 +11,10 @@ interface DiscountsDao {
     @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} ORDER BY expiration DESC")
     suspend fun getAll(): List<DiscountEntity>
 
+
+    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} WHERE code = :code")
+    suspend fun getByCode(code: String): DiscountEntity
+
     @Insert
     suspend fun insert(discount: DiscountEntity)
 
