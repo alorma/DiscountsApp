@@ -29,9 +29,9 @@ class BarcodeCaptureActivity : BaseActivity() {
             Log.i("Alorma", mapFormat(it.format).name)
             Log.i("Alorma", ".......")
 
+            barcodeView.pause()
+            barcodeView.release()
 
-            Toast.makeText(this, "Barcode!", Toast.LENGTH_SHORT).show()
-            finish()
         }
         barcodeView.onCameraErrorListener = OnCameraErrorListener { error ->
             Log.e("Alorma", error::class.simpleName)
