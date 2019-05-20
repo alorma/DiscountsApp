@@ -7,14 +7,7 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
-    </style>
-
-    <style name="AppTheme.DiscountsList">
-        <item name="colorPrimary">@color/colorSurface</item>
-        <item name="colorPrimaryDark">@color/colorSurface</item>
         <item name="bottomAppBarStyle">@style/DiscountsListBottomBarStyle</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="SelectorField" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
