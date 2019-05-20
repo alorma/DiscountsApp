@@ -7,30 +7,11 @@ class DiscountViewMapper(
     private val dateMapper: DateMapper
 ) {
 
-    fun map(discounts: List<DiscountEntity>): List<DiscountViewModel> {
-
-        val usedItems = discounts.filter { it.used }.mapItems()
-        val notUsedItems = discounts.filterNot { it.used }.mapItems()
-
-        val usedItemsSection = if (usedItems.isNotEmpty()) {
-            listOf(DiscountViewModel.Section("Used")) + usedItems
-        } else {
-            listOf()
-        }
-        val notUsedItemsSection = if (notUsedItems.isNotEmpty()) {
-            listOf(DiscountViewModel.Section("Not used")) + notUsedItems
-        } else {
-            listOf()
-        }
-
-        return notUsedItemsSection + usedItemsSection
-    }
-
-    private fun List<DiscountEntity>.mapItems() = map {
+    fun map(discounts: List<DiscountEntity>): List<DiscountViewModel> = discounts.map {
         mapItem(it)
     }
 
-    fun mapItem(it: DiscountEntity): DiscountViewModel.Item = DiscountViewModel.Item(
+    fun mapItem(it: DiscountEntity): DiscountViewModel = DiscountViewModel(
         it.code,
         it.text,
         it.place,

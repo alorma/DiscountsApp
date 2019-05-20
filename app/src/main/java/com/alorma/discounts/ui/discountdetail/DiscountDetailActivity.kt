@@ -26,10 +26,10 @@ class DiscountDetailActivity : BaseActivity(), DiscountDetailViewModel.View {
         }
     }
 
-    override fun showDiscount(discountViewModel: DiscountViewModel.Item) {
+    override fun showDiscount(discountViewModel: DiscountViewModel) {
         toolbar.title = discountViewModel.title
         code.text = discountViewModel.code
-        
+
         Glide.with(this)
             .load(Barcode("99501280211090169339", BarcodeFormat.CODE_128))
             .into(barcodeImage)

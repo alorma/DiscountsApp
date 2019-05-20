@@ -31,7 +31,7 @@ class DiscountDetailViewModel(
         }
     }
 
-    private fun loadBarcode(discountModel: DiscountViewModel.Item) {
+    private fun loadBarcode(discountModel: DiscountViewModel) {
         viewModelScope.launch {
             val bitmap = async {
                 generator.getBarcode(discountModel.code, BarcodeFormat.FORMAT_CODE_128)
@@ -44,7 +44,7 @@ class DiscountDetailViewModel(
     }
 
     interface View : BaseView {
-        fun showDiscount(discountViewModel: DiscountViewModel.Item)
+        fun showDiscount(discountViewModel: DiscountViewModel)
         fun showBitmap(bitmap: Bitmap)
     }
 }

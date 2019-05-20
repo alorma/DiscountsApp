@@ -27,13 +27,12 @@ class DiscountsViewModel(
         view?.openNewDiscount()
     }
 
-    fun onDiscountClick(discount: DiscountViewModel.Item) {
+    fun onDiscountClick(discount: DiscountViewModel) {
         view?.openDetail(discount.code)
     }
 
     interface View : BaseView {
         fun showDiscounts(discounts: List<DiscountViewModel>)
-
 
         fun openNewDiscount()
         fun openDetail(code: String)
