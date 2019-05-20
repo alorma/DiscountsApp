@@ -20,7 +20,7 @@
     </style>
 
     <style name="discount_item_info.discount">
-        <item name="android:drawableStart">@drawable/ic_euro</item>
+        <item name="android:drawableStart">@drawable/ic_card_giftcard</item>
     </style>
 
     <style name="discount_item_info.divider">
