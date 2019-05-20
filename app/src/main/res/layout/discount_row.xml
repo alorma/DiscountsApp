@@ -21,6 +21,23 @@
                 android:padding="12dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="34 EUR"
+                android:drawableStart="@drawable/ic_time"
+                android:id="@+id/discount"
+                style="@style/discount_item_info.date"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="8dp"
+                style="@style/discount_item_info.divider"
+                android:id="@+id/discountDivider"/>
+
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,5 +75,6 @@
                 android:drawableStart="@drawable/ic_time"
                 android:id="@+id/expiration"
                 style="@style/discount_item_info.date"/>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

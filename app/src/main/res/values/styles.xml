@@ -23,6 +23,11 @@
         <item name="android:drawableStart">@drawable/ic_time</item>
     </style>
 
+
+    <style name="discount_item_info.discount">
+        <item name="android:drawableStart">@drawable/ic_euro</item>
+    </style>
+
     <style name="discount_item_info.divider">
         <item name="android:background">@drawable/divider_surface_short</item>
     </style>

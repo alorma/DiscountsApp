@@ -44,6 +44,15 @@ class DiscountHolder(
         itemView.title.text = discountViewModel.title
         itemView.expiration.text = discountViewModel.date
 
+        if (discountViewModel.discount != null) {
+            itemView.discount.show()
+            itemView.discountDivider.show()
+            itemView.discount.text = discountViewModel.discount
+        } else {
+            itemView.discount.hide()
+            itemView.discountDivider.hide()
+        }
+
         if (discountViewModel.date != null) {
             itemView.expiration.show()
             itemView.expiration.text = discountViewModel.date

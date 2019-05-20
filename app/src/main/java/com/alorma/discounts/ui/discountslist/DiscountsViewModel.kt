@@ -5,7 +5,6 @@ import com.alorma.discounts.data.dao.DiscountsDao
 import com.alorma.discounts.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-
 class DiscountsViewModel(
     private val discountsDao: DiscountsDao,
     private val mapper: DiscountViewMapper
