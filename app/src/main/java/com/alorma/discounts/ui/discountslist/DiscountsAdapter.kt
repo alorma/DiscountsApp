@@ -40,7 +40,6 @@ class DiscountHolder(
     private val callback: ((DiscountViewModel) -> Unit)?
 ) : RecyclerView.ViewHolder(itemView) {
     fun bind(discountViewModel: DiscountViewModel) {
-        itemView.code.text = discountViewModel.code
         itemView.title.text = discountViewModel.title
         itemView.expiration.text = discountViewModel.date
 

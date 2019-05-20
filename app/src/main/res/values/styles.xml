@@ -15,14 +15,9 @@
         <item name="android:drawableStart">@drawable/ic_location</item>
     </style>
 
-    <style name="discount_item_info.code">
-        <item name="android:drawableStart">@drawable/ic_barcode</item>
-    </style>
-
     <style name="discount_item_info.date">
         <item name="android:drawableStart">@drawable/ic_time</item>
     </style>
-
 
     <style name="discount_item_info.discount">
         <item name="android:drawableStart">@drawable/ic_euro</item>

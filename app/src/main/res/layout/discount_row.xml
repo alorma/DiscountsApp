@@ -21,14 +21,12 @@
                 android:padding="12dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="34 EUR"
-                android:drawableStart="@drawable/ic_time"
                 android:id="@+id/discount"
-                style="@style/discount_item_info.date"/>
+                style="@style/discount_item_info.discount"/>
 
         <View
                 android:layout_width="match_parent"
@@ -56,23 +54,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="983901284082"
-                style="@style/discount_item_info.code"
-                android:id="@+id/code"/>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                style="@style/discount_item_info.divider"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="8dp"
-                android:id="@+id/codeDivider"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 tools:text="24/ 03 / 2019"
-                android:drawableStart="@drawable/ic_time"
                 android:id="@+id/expiration"
                 style="@style/discount_item_info.date"/>
 
