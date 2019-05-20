@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alorma.discounts.R
-import com.google.android.material.chip.Chip
+import com.alorma.discounts.extensions.hide
+import com.alorma.discounts.extensions.show
 import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -78,7 +79,22 @@ class DiscountHolder(
         itemView.code.text = discountViewModel.code
         itemView.title.text = discountViewModel.title
         itemView.expiration.text = discountViewModel.date
-        itemView.place.text = discountViewModel.place
+
+        if (discountViewModel.date != null) {
+            itemView.expiration.show()
+            itemView.expiration.text = discountViewModel.date
+        } else {
+            itemView.expiration.hide()
+        }
+
+        if (discountViewModel.place != null) {
+            itemView.place.show()
+            itemView.placeDivider.show()
+            itemView.place.text = discountViewModel.place
+        } else {
+            itemView.place.hide()
+            itemView.placeDivider.hide()
+        }
 
         itemView.setOnClickListener { callback?.invoke(discountViewModel) }
     }

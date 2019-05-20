@@ -33,7 +33,8 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="44dp"
                 android:layout_marginEnd="8dp"
-                style="@style/discount_item_info.divider"/>
+                style="@style/discount_item_info.divider"
+                android:id="@+id/placeDivider"/>
 
         <TextView
                 android:layout_width="match_parent"
@@ -47,7 +48,8 @@
                 android:layout_height="1dp"
                 style="@style/discount_item_info.divider"
                 android:layout_marginStart="44dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:id="@+id/codeDivider"/>
 
         <TextView
                 android:layout_width="match_parent"
