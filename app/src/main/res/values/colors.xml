@@ -4,11 +4,10 @@
     <color name="colorSecondary">#9cda03</color>
     <color name="colorSurface">#ffffff</color>
 
-
     <!-- Barcode colors -->
     <color name="barcode_foreground">#000000</color>
     <color name="barcode_background">#ffffff</color>
 
-    <color name="scanner_line">#00ceff</color>
+    <color name="black">#000000</color>
 
 </resources>

@@ -1,25 +1,33 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+    <style name="discount_item_info_font" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/on_surface_60</item>
     </style>
 
-    <style name="AppTheme.DiscountsList">
-        <item name="colorPrimary">@color/colorSurface</item>
-        <item name="colorPrimaryDark">@color/colorSurface</item>
-        <item name="bottomAppBarStyle">@style/DiscountsListBottomBarStyle</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    <style name="discount_item_info">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableTint">@color/on_surface_20</item>
+        <item name="android:textAppearance">@style/discount_item_info_font</item>
     </style>
 
-    <style name="SelectorField" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+    <style name="discount_item_info.place">
+        <item name="android:drawableStart">@drawable/ic_location</item>
+    </style>
 
-    <style name="DiscountsListBottomBarStyle" parent="Widget.MaterialComponents.BottomAppBar.Colored">
-        <item name="backgroundTint">@color/colorPrimary</item>
+    <style name="discount_item_info.code">
+        <item name="android:drawableStart">@drawable/ic_barcode</item>
+    </style>
+
+    <style name="discount_item_info.date">
+        <item name="android:drawableStart">@drawable/ic_time</item>
+    </style>
+
+    <style name="discount_item_info.divider">
+        <item name="android:background">@drawable/divider_surface_short</item>
+    </style>
+
+    <style name="discount_item_info.divider.full">
+        <item name="android:background">@color/black</item>
     </style>
 </resources>

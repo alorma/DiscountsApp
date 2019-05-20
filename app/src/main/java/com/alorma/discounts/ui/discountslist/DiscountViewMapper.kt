@@ -1,8 +1,11 @@
 package com.alorma.discounts.ui.discountslist
 
 import com.alorma.discounts.data.entity.DiscountEntity
+import com.alorma.discounts.ui.mapper.DateMapper
 
-class DiscountViewMapper {
+class DiscountViewMapper(
+    private val dateMapper: DateMapper
+) {
 
     fun map(discounts: List<DiscountEntity>): List<DiscountViewModel> {
 
@@ -31,6 +34,6 @@ class DiscountViewMapper {
         it.code,
         it.text,
         it.place,
-        it.expirationDate.toString()
+        it.expirationDate?.let { dateMapper.mapView(it) }
     )
 }

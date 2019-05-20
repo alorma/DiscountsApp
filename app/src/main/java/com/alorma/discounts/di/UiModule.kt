@@ -4,6 +4,7 @@ import com.alorma.discounts.ui.barcode.BarcodeCaptureViewModel
 import com.alorma.discounts.ui.discountdetail.DiscountDetailViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountsViewModel
+import com.alorma.discounts.ui.mapper.DateMapper
 import com.alorma.discounts.ui.newdiscount.NewDiscountViewMapper
 import com.alorma.discounts.ui.newdiscount.NewDiscountViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,6 +16,7 @@ val uiModule = module {
     viewModel { BarcodeCaptureViewModel(get()) }
     viewModel { NewDiscountViewModel(get(), get()) }
 
-    factory { DiscountViewMapper() }
+    factory { DiscountViewMapper(get()) }
     factory { NewDiscountViewMapper() }
+    factory { DateMapper() }
 }

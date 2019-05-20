@@ -10,7 +10,7 @@ class DiscountEntityMapper {
         saveDiscount.code,
         saveDiscount.format.name,
         saveDiscount.text,
-        "Xxxx",
+        "BonPreu",
         false,
         saveDiscount.expirationDate?.time,
         saveDiscount.discountQuantity,

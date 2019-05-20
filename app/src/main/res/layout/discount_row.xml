@@ -5,52 +5,56 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="0dp">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:padding="8dp">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  tools:text="-3€ de descompte"
-                  android:layout_marginTop="8dp"
-                  android:id="@+id/title"
-                  android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="-3€ de descompte"
+                android:layout_marginTop="8dp"
+                android:id="@+id/title"
+                android:padding="12dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  tools:text="La sierna"
-                  android:drawableStart="@drawable/ic_location"
-                  android:gravity="center_vertical"
-                  android:drawablePadding="8dp"
-                  android:id="@+id/place"
-                  android:layout_marginTop="8dp"
-                  android:drawableTint="?colorOnSurface"
-                  android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="La sirena"
+                style="@style/discount_item_info.place"
+                android:id="@+id/place"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  tools:text="00018181771838"
-                  android:drawableStart="@drawable/ic_barcode"
-                  android:gravity="center_vertical"
-                  android:drawablePadding="8dp"
-                  android:layout_marginTop="8dp"
-                  android:id="@+id/code"
-                  android:drawableTint="?colorOnSurface"
-                  android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="8dp"
+                style="@style/discount_item_info.divider"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  tools:text="24/ 03 / 2019"
-                  android:layout_marginTop="8dp"
-                  android:drawableStart="@drawable/ic_time"
-                  android:gravity="center_vertical"
-                  android:drawablePadding="8dp"
-                  android:id="@+id/expiration"
-                  android:drawableTint="?colorOnSurface"
-                  android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="983901284082"
+                style="@style/discount_item_info.code"
+                android:id="@+id/code"/>
 
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                style="@style/discount_item_info.divider"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="8dp"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="24/ 03 / 2019"
+                android:drawableStart="@drawable/ic_time"
+                android:id="@+id/expiration"
+                style="@style/discount_item_info.date"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alorma.discounts.R
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
