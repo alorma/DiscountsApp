@@ -1,65 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.newdiscount.NewDiscountActivity">
+<layout>
+    <data>
+        <import type="com.alorma.discounts.ui.newdiscount.NewDiscountViewModel"/>
+        <import type="android.view.View"/>
 
-    <com.google.android.material.appbar.AppBarLayout
+        <variable name="viewModel" type="NewDiscountViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/appBar">
-        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_height="match_parent"
+            tools:context=".ui.newdiscount.NewDiscountActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="Add discount"/>
-    </com.google.android.material.appbar.AppBarLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/appBar">
+            <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:title="@{ viewModel.discount.title }"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            android:id="@+id/codeFieldImage"
-            android:padding="8dp"
-            android:layout_margin="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBar"
-            android:background="@drawable/barcode_placeholder"
-            android:foreground="@drawable/barcode_placeholder_click"
-            android:contentDescription="Barcode placeholder"
-    />
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:id="@+id/codeFieldImage"
+                android:padding="8dp"
+                android:layout_margin="16dp"
+                app:loadBarcode="@{viewModel.barcode}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appBar"
+                android:background="@{ viewModel.barcode != null ? null  : @drawable/barcode_placeholder }"
+                android:foreground="@drawable/barcode_placeholder_click"
+                android:contentDescription="Barcode placeholder"
+        />
 
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="Scan barcode"
-            android:gravity="center"
-            android:id="@+id/codeFieldPlaceholderText"
-            app:layout_constraintTop_toTopOf="@id/codeFieldImage"
-            app:layout_constraintBottom_toBottomOf="@id/codeFieldImage"
-            app:layout_constraintStart_toStartOf="@id/codeFieldImage"
-            app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
-            android:textColor="@color/on_surface_20"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:fontFamily="sans-serif-medium"
-    />
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="Scan barcode"
+                android:gravity="center"
+                android:id="@+id/codeFieldPlaceholderText"
+                android:visibility="@{viewModel.barcode != null ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintTop_toTopOf="@id/codeFieldImage"
+                app:layout_constraintBottom_toBottomOf="@id/codeFieldImage"
+                app:layout_constraintStart_toStartOf="@id/codeFieldImage"
+                app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
+                android:textColor="@color/on_surface_20"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:fontFamily="sans-serif-medium"
+        />
 
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/codeText"
-            app:layout_constraintTop_toBottomOf="@id/codeFieldImage"
-            app:layout_constraintStart_toStartOf="@id/codeFieldImage"
-            app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
-            android:layout_margin="8dp"
-            android:textColor="@color/on_surface_20"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-    />
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/codeText"
+                android:text="@{viewModel.barcode.contents}"
+                app:layout_constraintTop_toBottomOf="@id/codeFieldImage"
+                app:layout_constraintStart_toStartOf="@id/codeFieldImage"
+                app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
+                android:layout_margin="8dp"
+                android:textColor="@color/on_surface_20"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

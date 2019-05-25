@@ -7,27 +7,28 @@ import android.os.Bundle
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.alorma.discounts.BuildConfig
-import com.alorma.discounts.R
+import com.alorma.discounts.databinding.NewDiscountActivityBinding
 import com.alorma.discounts.domain.BarcodeFormat
-import com.alorma.discounts.extensions.hide
 import com.alorma.discounts.ui.barcode.BarcodeCaptureActivity
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseActivity
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.new_discount_activity.*
-import net.codecision.glidebarcode.model.Barcode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
 
+    private lateinit var binding: NewDiscountActivityBinding
     private val newDiscountViewModel by viewModel<NewDiscountViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.new_discount_activity)
+        binding = NewDiscountActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         newDiscountViewModel.view = this
+        binding.viewModel = newDiscountViewModel
+        binding.lifecycleOwner = this
 
         configCode()
 /*
@@ -69,15 +70,6 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
                 newDiscountViewModel.onBarcodeCaptured(it)
             }
         }
-    }
-
-    override fun showBarcodeData(barcode: Barcode) {
-        Glide.with(codeFieldImage.context)
-            .load(barcode)
-            .into(codeFieldImage)
-        codeFieldImage.background = null
-        codeFieldPlaceholderText.hide()
-        codeText.text = barcode.contents
     }
 
     override fun onError(error: String) {
