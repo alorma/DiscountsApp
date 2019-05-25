@@ -1,6 +1,7 @@
 package com.alorma.discounts.ui.newdiscount
 
 import androidx.lifecycle.viewModelScope
+import com.alorma.discounts.data.barcode.DrawBarcodeFormatMapper
 import com.alorma.discounts.domain.DiscountType
 import com.alorma.discounts.domain.Result
 import com.alorma.discounts.domain.SaveDiscount
@@ -8,11 +9,13 @@ import com.alorma.discounts.domain.usecase.SaveDiscountUseCase
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
+import net.codecision.glidebarcode.model.Barcode
 import java.util.*
 
 class NewDiscountViewModel(
     private val saveDiscountUseCase: SaveDiscountUseCase,
-    private val newDiscountViewMapper: NewDiscountViewMapper
+    private val newDiscountViewMapper: NewDiscountViewMapper,
+    private val drawBarcodeFormatMapper: DrawBarcodeFormatMapper
 ) : BaseViewModel<NewDiscountViewModel.View>() {
 
     private var saveDiscountParams: SaveDiscountParams = SaveDiscountParams()
@@ -20,7 +23,8 @@ class NewDiscountViewModel(
     fun onBarcodeCaptured(capture: BarcodeCaptureResultData) {
         saveDiscountParams = saveDiscountParams.copy(code = capture.code, format = capture.format)
 
-        view?.showBarcodeData(capture.code, capture.format.name)
+        val barcode = Barcode(capture.code, drawBarcodeFormatMapper.map(capture.format))
+        view?.showBarcodeData(barcode)
     }
 
     fun onDiscountTypeSelected(discountType: DiscountTypeViewModel) {
@@ -62,7 +66,7 @@ class NewDiscountViewModel(
     }
 
     interface View : BaseView {
-        fun showBarcodeData(code: String, format: String)
+        fun showBarcodeData(barcode: Barcode)
 
         fun onError(error: String)
 

@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.newdiscount.NewDiscountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -18,108 +20,35 @@
                 app:title="Add discount"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+    <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="140dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBar"
-            android:layout_margin="16dp"
-            app:helperText="Mandatory"
-            android:hint="Title"
-            android:id="@+id/titleField">
+            android:padding="16dp"
+    >
 
-        <com.google.android.material.textfield.TextInputEditText
+        <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.alorma.discounts.ui.widget.SelectorFieldView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleField"
-            app:helperText="Mandatory"
-            android:layout_margin="16dp"
-            android:hint="Code"
-            android:id="@+id/codeField"
-            style="@style/SelectorField"/>
-
-    <!--Quantity -->
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/quantityField"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"
-            android:hint="Quantity"
-            app:helperText="Optional"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@id/quantityTypeField"
-            app:layout_constraintTop_toBottomOf="@id/codeField">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+                android:layout_height="match_parent"
+                android:id="@+id/codeFieldImage"
+                android:padding="8dp"
+                android:background="@drawable/barcode_placeholder"
+                android:foreground="@drawable/barcode_placeholder_click"
+                android:contentDescription="Barcode placeholder"
         />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.alorma.discounts.ui.widget.ListSelectorFieldView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/quantityTypeField"
-            style="@style/SelectorField"
-            android:hint="Type"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/codeField"
-            app:layout_constraintStart_toEndOf="@id/quantityField"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- END quantity -->
-
-    <com.alorma.discounts.ui.widget.SelectorFieldView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quantityField"
-            app:helperText="Optional"
-            android:layout_margin="16dp"
-            android:hint="Place"
-            android:id="@+id/placeField"
-            style="@style/SelectorField"/>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/saveButton"
-            android:text="Save"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="24dp"
-    />
-
-    <com.alorma.discounts.ui.widget.SelectorFieldView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/placeField"
-            app:helperText="Optional"
-            android:layout_margin="16dp"
-            android:hint="Expiration date"
-            android:id="@+id/expirationField"
-            style="@style/SelectorField"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scan barcode"
+                android:gravity="center"
+                android:id="@+id/codeFieldPlaceholderText"
+                android:textColor="@color/on_surface_20"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:fontFamily="sans-serif-medium"
+        />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

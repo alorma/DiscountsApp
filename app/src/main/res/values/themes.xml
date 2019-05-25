@@ -6,13 +6,8 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSurface">@color/colorSurface</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
-        <item name="bottomAppBarStyle">@style/DiscountsListBottomBarStyle</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
     </style>
 
     <style name="SelectorField" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
-
-    <style name="DiscountsListBottomBarStyle" parent="Widget.MaterialComponents.BottomAppBar.Colored">
-        <item name="backgroundTint">@color/colorPrimary</item>
-    </style>
 </resources>
