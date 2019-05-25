@@ -6,8 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
+import com.alorma.discounts.BuildConfig
 import com.alorma.discounts.R
-import com.alorma.discounts.data.barcode.CameraBarcodeFormatMapper
+import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.extensions.hide
 import com.alorma.discounts.ui.barcode.BarcodeCaptureActivity
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
@@ -15,14 +16,12 @@ import com.alorma.discounts.ui.base.BaseActivity
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.new_discount_activity.*
 import net.codecision.glidebarcode.model.Barcode
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
 
     private val newDiscountViewModel by viewModel<NewDiscountViewModel>()
-    private val cameraBarcodeMapper: CameraBarcodeFormatMapper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +48,15 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
         codeFieldImage.setOnClickListener {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
+                    // DEBUG
+                    if (BuildConfig.DEBUG) {
+                        val result = BarcodeCaptureResultData("99601278037322003004", BarcodeFormat.FORMAT_CODE_128)
+                        newDiscountViewModel.onBarcodeCaptured(result)
+                    }
+                    /*
                     val intent = BarcodeCaptureActivity.buildIntent(this)
                     startActivityForResult(intent, RC_CAPTURE_BARCODE)
+                     */
                 }
             }
         }
@@ -71,6 +77,7 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
             .into(codeFieldImage)
         codeFieldImage.background = null
         codeFieldPlaceholderText.hide()
+        codeText.text = barcode.contents
     }
 
     override fun onError(error: String) {

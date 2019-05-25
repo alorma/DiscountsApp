@@ -20,35 +20,46 @@
                 app:title="Add discount"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
+    <ImageView
             android:layout_width="0dp"
             android:layout_height="140dp"
+            android:id="@+id/codeFieldImage"
+            android:padding="8dp"
+            android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBar"
-            android:padding="16dp"
-    >
+            android:background="@drawable/barcode_placeholder"
+            android:foreground="@drawable/barcode_placeholder_click"
+            android:contentDescription="Barcode placeholder"
+    />
 
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/codeFieldImage"
-                android:padding="8dp"
-                android:background="@drawable/barcode_placeholder"
-                android:foreground="@drawable/barcode_placeholder_click"
-                android:contentDescription="Barcode placeholder"
-        />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Scan barcode"
+            android:gravity="center"
+            android:id="@+id/codeFieldPlaceholderText"
+            app:layout_constraintTop_toTopOf="@id/codeFieldImage"
+            app:layout_constraintBottom_toBottomOf="@id/codeFieldImage"
+            app:layout_constraintStart_toStartOf="@id/codeFieldImage"
+            app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
+            android:textColor="@color/on_surface_20"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:fontFamily="sans-serif-medium"
+    />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Scan barcode"
-                android:gravity="center"
-                android:id="@+id/codeFieldPlaceholderText"
-                android:textColor="@color/on_surface_20"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:fontFamily="sans-serif-medium"
-        />
-    </FrameLayout>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/codeText"
+            app:layout_constraintTop_toBottomOf="@id/codeFieldImage"
+            app:layout_constraintStart_toStartOf="@id/codeFieldImage"
+            app:layout_constraintEnd_toEndOf="@id/codeFieldImage"
+            android:layout_margin="8dp"
+            android:textColor="@color/on_surface_20"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
