@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout>
+    <data>
+        <import type="com.alorma.discounts.ui.discountdetail.DiscountDetailViewModel"/>
 
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:id="@+id/appBar">
+        <variable name="viewModel" type="DiscountDetailViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:id="@+id/toolbar"
-                app:layout_collapseMode="pin"
+                android:id="@+id/appBar">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:id="@+id/toolbar"
+                    app:layout_collapseMode="pin"
+                    app:title="@{ viewModel.discount.title }"
+            />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+                android:id="@+id/barcodeImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="20dp"
+                android:background="@color/barcode_background"
+                app:loadBarcode="@{ viewModel.discount.barcode }"
         />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/code"
+                android:text="@{ viewModel.discount.code }"
+        />
 
-    <ImageView
-            android:id="@+id/barcodeImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="20dp"
-            android:background="@color/barcode_background"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"/>
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/code"
-    />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"/>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>

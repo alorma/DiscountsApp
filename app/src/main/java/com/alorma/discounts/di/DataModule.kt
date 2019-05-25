@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.alorma.discounts.data.DiscountsDatabase
 import com.alorma.discounts.data.barcode.BarcodeColors
 import com.alorma.discounts.data.barcode.CameraBarcodeFormatMapper
-import com.alorma.discounts.data.barcode.DiscountBarcodeGenerator
 import com.alorma.discounts.data.barcode.DrawBarcodeFormatMapper
 import com.alorma.discounts.data.datasource.DiscountsDataSource
 import com.alorma.discounts.data.mapper.DiscountEntityMapper
@@ -23,7 +22,6 @@ val dataModule = module {
 
     single { get<DiscountsDatabase>().discountsDao() }
 
-    single { DiscountBarcodeGenerator(get(), get()) }
     single { BarcodeColors(get()) }
     single { ResourcesProvider(androidApplication()) }
 

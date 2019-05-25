@@ -1,10 +1,10 @@
 package com.alorma.discounts.ui.discountdetail
 
-import android.graphics.Bitmap
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.alorma.discounts.data.barcode.DiscountBarcodeGenerator
 import com.alorma.discounts.data.dao.DiscountsDao
-import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountViewModel
@@ -13,38 +13,34 @@ import kotlinx.coroutines.launch
 
 class DiscountDetailViewModel(
     private val discountsDao: DiscountsDao,
-    private val mapper: DiscountViewMapper,
-    private val generator: DiscountBarcodeGenerator
+    private val mapper: DiscountViewMapper
 ) : BaseViewModel<DiscountDetailViewModel.View>() {
 
-    fun onInit(code: String) {
+    val code = MutableLiveData<String>()
+
+    private val _discount = MediatorLiveData<DiscountViewModel>()
+    val discount: LiveData<DiscountViewModel>
+        get() = _discount
+
+    init {
+        _discount.addSource(code) { discountCode ->
+            _discount.removeSource(code)
+            loadDiscount(discountCode)
+        }
+    }
+
+    private fun loadDiscount(discountCode: String) {
         viewModelScope.launch {
             val discount = async {
-                val entity = discountsDao.getByCode(code)
+                val entity = discountsDao.getByCode(discountCode)
                 mapper.mapItem(entity)
             }
 
             discount.await().let { discountModel ->
-                view?.showDiscount(discountModel)
-                loadBarcode(discountModel)
+                _discount.postValue(discountModel)
             }
         }
     }
 
-    private fun loadBarcode(discountModel: DiscountViewModel) {
-        viewModelScope.launch {
-            val bitmap = async {
-                generator.getBarcode(discountModel.code, BarcodeFormat.FORMAT_CODE_128)
-            }
-
-            bitmap.await()?.let {
-                view?.showBitmap(it)
-            }
-        }
-    }
-
-    interface View : BaseView {
-        fun showDiscount(discountViewModel: DiscountViewModel)
-        fun showBitmap(bitmap: Bitmap)
-    }
+    interface View : BaseView
 }

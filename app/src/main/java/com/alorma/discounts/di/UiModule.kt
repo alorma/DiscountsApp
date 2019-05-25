@@ -12,11 +12,11 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModel { DiscountsViewModel(get(), get()) }
-    viewModel { DiscountDetailViewModel(get(), get(), get()) }
+    viewModel { DiscountDetailViewModel(get(), get()) }
     viewModel { BarcodeCaptureViewModel(get()) }
     viewModel { NewDiscountViewModel(get(), get()) }
 
-    factory { DiscountViewMapper(get()) }
+    factory { DiscountViewMapper(get(), get()) }
     factory { NewDiscountViewMapper() }
     factory { DateMapper() }
 }
