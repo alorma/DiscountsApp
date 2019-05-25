@@ -14,12 +14,12 @@ import com.alorma.discounts.ui.barcode.BarcodeCaptureFragment
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.new_discount_fragment.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     private lateinit var binding: NewDiscountFragmentBinding
-    private val newDiscountViewModel by viewModel<NewDiscountViewModel>()
+    private val newDiscountViewModel by sharedViewModel<NewDiscountViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = NewDiscountFragmentBinding.inflate(layoutInflater)
@@ -50,8 +50,12 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     override fun onStart() {
         super.onStart()
-        arguments?.getParcelable<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
-            newDiscountViewModel.onBarcodeCaptured(it)
+        findNavController().graph.arguments[BarcodeCaptureFragment.EXTRA_RETURN]?.let {
+            it?.let {
+                //newDiscountViewModel.onBarcodeCaptured(it)
+            }
+            findNavController().graph.removeArgument(BarcodeCaptureFragment.EXTRA_RETURN)
+
         }
     }
 

@@ -5,18 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.alorma.discounts.R
 import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseFragment
+import com.alorma.discounts.ui.newdiscount.NewDiscountViewModel
 import kotlinx.android.synthetic.main.barcode_reader_fragment.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uk.co.brightec.kbarcode.camera.OnCameraErrorListener
 
 
 class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
+
+    private val newDiscountViewModel by sharedViewModel<NewDiscountViewModel>()
     private val barcodeCaptureViewModel by viewModel<BarcodeCaptureViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +42,10 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
 
     override fun closeWithData(code: String, format: BarcodeFormat) {
         val barcode = BarcodeCaptureResultData(code, format)
-        findNavController().navigate(R.id.newDiscountFragment, bundleOf(EXTRA_RETURN to barcode))
+
+        newDiscountViewModel.onBarcodeCaptured(barcode)
+
+        findNavController().popBackStack()
     }
 
     companion object {
