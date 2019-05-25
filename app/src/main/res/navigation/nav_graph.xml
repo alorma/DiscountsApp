@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/discountsListFragment">
+
+    <fragment android:id="@+id/discountsListFragment"
+              android:name="com.alorma.discounts.ui.discountslist.DiscountsListFragment"
+              android:label="DiscountsListFragment"
+              tools:layout="@layout/discounts_list_fragment"
+    >
+        <action android:id="@+id/action_discountsListFragment_to_discountDetailFragment"
+                app:destination="@id/discountDetailFragment"/>
+        <action android:id="@+id/action_discountsListFragment_to_newDiscountFragment"
+                app:destination="@id/newDiscountFragment"/>
+    </fragment>
+    <fragment android:id="@+id/discountDetailFragment"
+              android:name="com.alorma.discounts.ui.discountdetail.DiscountDetailFragment"
+              android:label="DiscountDetailFragment"
+              tools:layout="@layout/discount_detail_fragment"
+    >
+        <argument android:name="code_id" app:argType="string"/>
+    </fragment>
+    <fragment android:id="@+id/newDiscountFragment"
+              android:name="com.alorma.discounts.ui.newdiscount.NewDiscountFragment"
+              android:label="NewDiscountFragment"
+              tools:layout="@layout/new_discount_fragment"
+    >
+        <action android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
+                app:destination="@id/barcodeCaptureFragment"/>
+    </fragment>
+    <fragment android:id="@+id/barcodeCaptureFragment"
+              android:name="com.alorma.discounts.ui.barcode.BarcodeCaptureFragment"
+              android:label="BarcodeCaptureFragment"
+              tools:layout="@layout/barcode_reader_fragment"/>
+</navigation>

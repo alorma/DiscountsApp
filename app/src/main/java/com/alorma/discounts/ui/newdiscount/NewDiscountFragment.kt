@@ -1,30 +1,34 @@
 package com.alorma.discounts.ui.newdiscount
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.alorma.discounts.BuildConfig
-import com.alorma.discounts.databinding.NewDiscountActivityBinding
+import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.domain.BarcodeFormat
-import com.alorma.discounts.ui.barcode.BarcodeCaptureActivity
+import com.alorma.discounts.ui.barcode.BarcodeCaptureFragment
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
-import com.alorma.discounts.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.new_discount_activity.*
+import com.alorma.discounts.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.new_discount_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
-class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
-
-    private lateinit var binding: NewDiscountActivityBinding
+    private lateinit var binding: NewDiscountFragmentBinding
     private val newDiscountViewModel by viewModel<NewDiscountViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = NewDiscountActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = NewDiscountFragmentBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         newDiscountViewModel.view = this
         binding.viewModel = newDiscountViewModel
@@ -55,7 +59,7 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
                         newDiscountViewModel.onBarcodeCaptured(result)
                     }
                     /*
-                    val intent = BarcodeCaptureActivity.buildIntent(this)
+                    val intent = BarcodeCaptureFragment.newInstance(this)
                     startActivityForResult(intent, RC_CAPTURE_BARCODE)
                      */
                 }
@@ -66,7 +70,7 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_CAPTURE_BARCODE && resultCode == Activity.RESULT_OK) {
-            data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureActivity.EXTRA_RETURN)?.let {
+            data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
                 newDiscountViewModel.onBarcodeCaptured(it)
             }
         }
@@ -114,7 +118,7 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
                         val day = date.get(Calendar.DAY_OF_MONTH)
                         val month = date.get(Calendar.MONTH)
                         val year = date.get(Calendar.YEAR)
-                        this@NewDiscountActivity.expirationField.setText("$day/$month/$year")
+                        this@NewDiscountFragment.expirationField.setText("$day/$month/$year")
 
                         newDiscountViewModel.onExpirationDateChanged(date)
                     }
@@ -130,7 +134,7 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
             super.onActivityResult(requestCode, resultCode, data)
 
             if (requestCode == RC_CAPTURE_BARCODE && resultCode == Activity.RESULT_OK) {
-                data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureActivity.EXTRA_RETURN)?.let {
+                data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
                     newDiscountViewModel.onBarcodeCaptured(it)
                 }
             }
@@ -148,7 +152,6 @@ class NewDiscountActivity : BaseActivity(), NewDiscountViewModel.View {
      */
     companion object {
         private const val RC_CAPTURE_BARCODE = 1131
-        fun build(context: Context): Intent = Intent(context, NewDiscountActivity::class.java)
     }
 
 }
