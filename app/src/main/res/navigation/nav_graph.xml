@@ -22,13 +22,15 @@
     >
         <argument android:name="code_id" app:argType="string"/>
     </fragment>
+
     <fragment android:id="@+id/newDiscountFragment"
               android:name="com.alorma.discounts.ui.newdiscount.NewDiscountFragment"
               android:label="NewDiscountFragment"
               tools:layout="@layout/new_discount_fragment"
     >
         <action android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
-                app:destination="@id/barcodeCaptureFragment"/>
+                app:destination="@id/barcodeCaptureFragment"
+        />
     </fragment>
     <fragment android:id="@+id/barcodeCaptureFragment"
               android:name="com.alorma.discounts.ui.barcode.BarcodeCaptureFragment"

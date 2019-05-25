@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
-import com.alorma.discounts.BuildConfig
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
-import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.barcode.BarcodeCaptureFragment
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseFragment
@@ -49,19 +48,27 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 */
     }
 
+    override fun onStart() {
+        super.onStart()
+        arguments?.getParcelable<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
+            newDiscountViewModel.onBarcodeCaptured(it)
+        }
+    }
+
     private fun configCode() {
         codeFieldImage.setOnClickListener {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
                     // DEBUG
+                    /*
                     if (BuildConfig.DEBUG) {
                         val result = BarcodeCaptureResultData("99601278037322003004", BarcodeFormat.FORMAT_CODE_128)
                         newDiscountViewModel.onBarcodeCaptured(result)
                     }
-                    /*
-                    val intent = BarcodeCaptureFragment.newInstance(this)
-                    startActivityForResult(intent, RC_CAPTURE_BARCODE)
                      */
+
+                    val destination = NewDiscountFragmentDirections.actionNewDiscountFragmentToBarcodeCaptureFragment()
+                    findNavController().navigate(destination)
                 }
             }
         }

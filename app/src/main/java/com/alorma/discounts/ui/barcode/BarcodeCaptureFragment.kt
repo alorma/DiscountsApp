@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.alorma.discounts.R
 import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseFragment
@@ -36,8 +38,8 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
     }
 
     override fun closeWithData(code: String, format: BarcodeFormat) {
-        BarcodeCaptureResultData(code, format)
-        TODO()
+        val barcode = BarcodeCaptureResultData(code, format)
+        findNavController().navigate(R.id.newDiscountFragment, bundleOf(EXTRA_RETURN to barcode))
     }
 
     companion object {
