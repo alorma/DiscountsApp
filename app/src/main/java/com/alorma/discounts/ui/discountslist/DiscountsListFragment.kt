@@ -44,6 +44,7 @@ class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
     }
 
     override fun openNewDiscount() {
-        TODO()
+        val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToNewDiscountFragment()
+        findNavController().navigate(directions)
     }
 }
