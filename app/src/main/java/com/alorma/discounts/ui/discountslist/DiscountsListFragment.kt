@@ -34,8 +34,8 @@ class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
         discountsList.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun showDiscounts(discounts: List<DiscountVM>) {
-        adapter.items = discounts
+    override fun showList(items: List<ItemView>) {
+        adapter.items = items
     }
 
     override fun openDetail(discountId: String) {

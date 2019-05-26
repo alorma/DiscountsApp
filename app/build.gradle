@@ -27,6 +27,9 @@ android {
     dataBinding {
         enabled = true
     }
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
 }
 
 androidExtensions {

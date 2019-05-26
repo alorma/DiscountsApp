@@ -1,11 +1,19 @@
 package com.alorma.discounts.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.alorma.discounts.data.entity.DiscountEntity.Companion.TABLE_NAME
 
-@Entity(tableName = TABLE_NAME)
+@Entity(
+    tableName = TABLE_NAME,
+    indices = [Index("code")],
+    foreignKeys = [
+        ForeignKey(
+            entity = PlaceEntity::class,
+            parentColumns = [PlaceEntity.ID_COLUMN],
+            childColumns = [DiscountEntity.PLACE_COLUMN]
+        )
+    ]
+)
 data class DiscountEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "code") val code: String?,
@@ -18,5 +26,6 @@ data class DiscountEntity(
 
     companion object {
         const val TABLE_NAME = "discounts"
+        const val PLACE_COLUMN = "place"
     }
 }

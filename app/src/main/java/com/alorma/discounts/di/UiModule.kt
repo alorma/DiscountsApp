@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val uiModule = module {
-    viewModel { DiscountsViewModel(get(), get()) }
+    viewModel { DiscountsViewModel(get(), get(), get()) }
     viewModel { (args: DiscountDetailFragmentArgs) ->
         DiscountDetailViewModel(args.discountId, get(), get())
     }

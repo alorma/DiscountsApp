@@ -12,6 +12,9 @@ interface DiscountsDao {
     @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} ORDER BY expiration DESC")
     suspend fun getAll(): List<DiscountEntity>
 
+    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} WHERE place = :place ORDER BY expiration DESC")
+    suspend fun getAllByPlace(place: String): List<DiscountEntity>
+
     @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} WHERE id = :discountId")
     suspend fun getById(discountId: String): DiscountEntity
 

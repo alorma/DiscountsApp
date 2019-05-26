@@ -19,22 +19,7 @@
                 android:layout_marginTop="8dp"
                 android:id="@+id/title"
                 android:padding="12dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="La sirena"
-                style="@style/discount_item_info.place"
-                android:id="@+id/place"/>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="8dp"
-                style="@style/discount_item_info.divider"
-                android:id="@+id/placeDivider"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
         <TextView
                 android:layout_width="match_parent"

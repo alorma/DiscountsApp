@@ -21,6 +21,7 @@ val dataModule = module {
     }
 
     single { get<DiscountsDatabase>().discountsDao() }
+    single { get<DiscountsDatabase>().placesDao() }
 
     single { BarcodeColors(get()) }
     single { ResourcesProvider(androidApplication()) }

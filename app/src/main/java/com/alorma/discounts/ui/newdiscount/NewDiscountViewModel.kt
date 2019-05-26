@@ -41,6 +41,7 @@ class NewDiscountViewModel(
         if (text.isBlank()) {
             return
         }
+        saveDiscountParams = saveDiscountParams.copy(place = SavePlace("la-sirena", "La sirena"))
         saveDiscountParams = saveDiscountParams.copy(text = text)
         viewModelScope.launch {
             when (val it = saveDiscountUseCase.save(saveDiscountParams)) {

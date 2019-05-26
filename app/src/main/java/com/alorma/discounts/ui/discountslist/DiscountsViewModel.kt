@@ -1,11 +1,15 @@
 package com.alorma.discounts.ui.discountslist
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.dao.DiscountsDao
+import com.alorma.discounts.data.dao.PlacesDao
+import com.alorma.discounts.data.entity.PlaceEntity
 import com.alorma.discounts.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class DiscountsViewModel(
+    private val placesDao: PlacesDao,
     private val discountsDao: DiscountsDao,
     private val mapper: DiscountViewMapper
 ) : BaseViewModel<DiscountsViewModel.View>() {
@@ -16,9 +20,26 @@ class DiscountsViewModel(
 
     private fun loadItems() {
         viewModelScope.launch {
-            val discountItems = discountsDao.getAll()
-            val models = mapper.map(discountItems)
-            view?.showDiscounts(models)
+
+            if (placesDao.getAll().isEmpty()) {
+                val places = (1..3).map {
+                    PlaceEntity("place_$it", "Place $it")
+                } + PlaceEntity("la-sirena", "La Sirena")
+
+                placesDao.insertAll(places)
+
+                placesDao.getAll().forEach {
+                    Log.i("Alorma", it.toString())
+                }
+            }
+
+            val map = placesDao.getAll()
+                .associateWith {
+                    discountsDao.getAllByPlace(it.id)
+                }
+
+            val items = mapper.map(map)
+            view?.showList(items)
         }
     }
 
@@ -26,12 +47,12 @@ class DiscountsViewModel(
         view?.openNewDiscount()
     }
 
-    fun onDiscountClick(discount: DiscountVM) {
+    fun onDiscountClick(discount: ItemView.DiscountVM) {
         view?.openDetail(discount.id)
     }
 
     interface View : BaseView {
-        fun showDiscounts(discounts: List<DiscountVM>)
+        fun showList(items: List<ItemView>)
 
         fun openNewDiscount()
         fun openDetail(discountId: String)

@@ -12,18 +12,14 @@ class DiscountsDataSource(
     private val discountMapper: DiscountEntityMapper
 ) {
 
-    suspend fun save(saveDiscount: SaveDiscountParams): Result<*> = withContext(Dispatchers.IO) {
-        try {
-            val entity = discountMapper.mapSave(
-                saveDiscount.barcode,
-                saveDiscount.text,
-                saveDiscount.expirationDate,
-                saveDiscount.place
-            )
-            discountsDao.insert(entity)
-            Result.Success.Complete
-        } catch (e: Exception) {
-            Result.Fail.Error(e)
+    suspend fun save(saveDiscount: SaveDiscountParams): Result<*> =
+        withContext(Dispatchers.IO) {
+            try {
+                val entity = discountMapper.mapSave(saveDiscount)
+                discountsDao.insert(entity)
+                Result.Success.Complete
+            } catch (e: Exception) {
+                Result.Fail.Error(e)
+            }
         }
-    }
 }
