@@ -12,12 +12,10 @@
     >
         <action android:id="@+id/action_discountsListFragment_to_discountDetailFragment"
                 app:destination="@id/discountDetailFragment"
-                app:popUpTo="@+id/discountsListFragment"
         />
         <action android:id="@+id/action_discountsListFragment_to_newDiscountFragment"
                 app:destination="@id/newDiscountFragment"
-                app:popUpTo="@+id/discountsListFragment"
-        />
+                app:launchSingleTop="false"/>
     </fragment>
     <fragment android:id="@+id/discountDetailFragment"
               android:name="com.alorma.discounts.ui.discountdetail.DiscountDetailFragment"

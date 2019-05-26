@@ -14,6 +14,8 @@ import com.alorma.discounts.ui.newdiscount.NewDiscountViewModel
 import kotlinx.android.synthetic.main.barcode_reader_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uk.co.brightec.kbarcode.BarcodeView
+import uk.co.brightec.kbarcode.Options
 import uk.co.brightec.kbarcode.camera.OnCameraErrorListener
 
 
@@ -31,6 +33,11 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
 
         barcodeCaptureViewModel.view = this
 
+        val options = Options.Builder()
+            .scaleType(BarcodeView.CENTER_CROP)
+            .build()
+
+        barcodeView.setOptions(options)
         lifecycle.addObserver(barcodeView)
         barcodeView.barcode.observe(this) {
             barcodeCaptureViewModel.onCaptured(it)

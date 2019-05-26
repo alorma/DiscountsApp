@@ -48,15 +48,9 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 */
     }
 
-    override fun onStart() {
-        super.onStart()
-        findNavController().graph.arguments[BarcodeCaptureFragment.EXTRA_RETURN]?.let {
-            it?.let {
-                //newDiscountViewModel.onBarcodeCaptured(it)
-            }
-            findNavController().graph.removeArgument(BarcodeCaptureFragment.EXTRA_RETURN)
-
-        }
+    override fun onStop() {
+        super.onStop()
+        newDiscountViewModel.reset()
     }
 
     private fun configCode() {
