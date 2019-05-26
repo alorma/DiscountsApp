@@ -34,12 +34,12 @@ class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
         discountsList.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun showDiscounts(discounts: List<DiscountViewModel>) {
+    override fun showDiscounts(discounts: List<DiscountVM>) {
         adapter.items = discounts
     }
 
-    override fun openDetail(code: String) {
-        val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToDiscountDetailFragment(code)
+    override fun openDetail(discountId: String) {
+        val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToDiscountDetailFragment(discountId)
         findNavController().navigate(directions)
     }
 

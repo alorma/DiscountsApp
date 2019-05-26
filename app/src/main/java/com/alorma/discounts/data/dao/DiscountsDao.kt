@@ -2,6 +2,7 @@ package com.alorma.discounts.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.alorma.discounts.data.entity.DiscountEntity
 
@@ -11,11 +12,10 @@ interface DiscountsDao {
     @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} ORDER BY expiration DESC")
     suspend fun getAll(): List<DiscountEntity>
 
+    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} WHERE id = :discountId")
+    suspend fun getById(discountId: String): DiscountEntity
 
-    @Query("SELECT * FROM ${DiscountEntity.TABLE_NAME} WHERE code = :code")
-    suspend fun getByCode(code: String): DiscountEntity
-
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(discount: DiscountEntity)
 
     @Insert

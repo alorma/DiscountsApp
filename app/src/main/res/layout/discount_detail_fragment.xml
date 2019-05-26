@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:id="@+id/code"
-                android:text="@{ viewModel.discount.code }"
+                app:loadBarcode="@{ viewModel.discount.barcode }"
         />
 
         <TextView

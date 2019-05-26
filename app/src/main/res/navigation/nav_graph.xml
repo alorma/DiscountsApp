@@ -23,7 +23,7 @@
               tools:layout="@layout/discount_detail_fragment"
     >
         <argument
-                android:name="code_id"
+                android:name="discount_id"
                 app:argType="string"/>
     </fragment>
 

@@ -2,6 +2,7 @@ package com.alorma.discounts.di
 
 import com.alorma.discounts.ui.barcode.BarcodeCaptureViewModel
 import com.alorma.discounts.ui.discountdetail.DiscountDetailFragmentArgs
+import com.alorma.discounts.ui.discountdetail.DiscountDetailViewMapper
 import com.alorma.discounts.ui.discountdetail.DiscountDetailViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountsViewModel
@@ -14,12 +15,13 @@ import org.koin.dsl.module
 val uiModule = module {
     viewModel { DiscountsViewModel(get(), get()) }
     viewModel { (args: DiscountDetailFragmentArgs) ->
-        DiscountDetailViewModel(args.codeId, get(), get())
+        DiscountDetailViewModel(args.discountId, get(), get())
     }
     viewModel { BarcodeCaptureViewModel(get()) }
     viewModel { NewDiscountViewModel(get(), get(), get()) }
 
-    factory { DiscountViewMapper(get(), get()) }
+    factory { DiscountViewMapper(get()) }
+    factory { DiscountDetailViewMapper(get(), get()) }
     factory { NewDiscountViewMapper() }
     factory { DateMapper() }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
@@ -38,23 +39,8 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
         configCode()
         configExpiration()
-/*
-        configCode()
         configPlace()
-        configDiscountType()
-
-        saveButton.setOnClickListener {
-            val title = titleField.editText?.text?.toString().orEmpty()
-            val quantity = quantityField.editText?.text?.toString().orEmpty()
-
-            newDiscountViewModel.onSave(title, quantity)
-        }
-*/
-    }
-
-    override fun onStop() {
-        super.onStop()
-        newDiscountViewModel.reset()
+        configSave()
     }
 
     private fun configCode() {
@@ -90,7 +76,14 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     private fun configPlace() {
         placeField.actionListener = {
-            // Listener to select place
+            newDiscountViewModel.onPlaceSelected(SavePlace("la-sirena", "La Sirena"))
+        }
+    }
+
+    private fun configSave() {
+        saveButton.setOnClickListener {
+            val text = descriptionField.editText?.text?.toString().orEmpty()
+            newDiscountViewModel.onSave(text)
         }
     }
 
@@ -104,55 +97,18 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     }
 
     override fun onError(error: String) {
-
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
     }
 
     override fun close() {
-
+        findNavController().popBackStack()
     }
 
-    /*
+    override fun onStop() {
+        super.onStop()
+        newDiscountViewModel.reset()
+    }
 
-        private fun configDiscountType() {
-            val discountTypes = listOf(
-                DiscountTypeViewModel("%", "percentage"),
-                DiscountTypeViewModel("€", "Euro")
-            )
-
-            quantityTypeField.actionListener = {
-                quantityTypeField.show(discountTypes, { discountType ->
-                    discountType.symbol + " " + discountType.name
-                }) {
-                    newDiscountViewModel.onDiscountTypeSelected(it)
-                }
-            }
-        }
-
-
-        override fun showBarcodeData(code: String, format: String) {
-            codeField.setText(code)
-        }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-
-            if (requestCode == RC_CAPTURE_BARCODE && resultCode == Activity.RESULT_OK) {
-                data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
-                    newDiscountViewModel.onBarcodeCaptured(it)
-                }
-            }
-        }
-
-        override fun close() {
-            setResult(Activity.RESULT_OK)
-            finish()
-        }
-
-        override fun onError(errorMessage: String) {
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-        }
-
-     */
     companion object {
         private const val RC_CAPTURE_BARCODE = 1131
     }

@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.discount_row.view.*
 
 class DiscountsAdapter : RecyclerView.Adapter<DiscountHolder>() {
 
-    var callback: ((DiscountViewModel) -> Unit)? = null
+    var callback: ((DiscountVM) -> Unit)? = null
 
-    var items: List<DiscountViewModel> = listOf()
+    var items: List<DiscountVM> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -32,50 +32,41 @@ class DiscountsAdapter : RecyclerView.Adapter<DiscountHolder>() {
 
     override fun getItemCount(): Int = items.size
 
-    private fun getItem(position: Int): DiscountViewModel = items[position]
+    private fun getItem(position: Int): DiscountVM = items[position]
 }
 
 class DiscountHolder(
     itemView: View,
-    private val callback: ((DiscountViewModel) -> Unit)?
+    private val callback: ((DiscountVM) -> Unit)?
 ) : RecyclerView.ViewHolder(itemView) {
-    fun bind(discountViewModel: DiscountViewModel) {
-        itemView.title.text = discountViewModel.title
-        itemView.expiration.text = discountViewModel.date
+    fun bind(discountVM: DiscountVM) {
+        itemView.title.text = discountVM.text
+        itemView.expiration.text = discountVM.date
 
-        if (discountViewModel.discount != null) {
-            itemView.discount.show()
-            itemView.discountDivider.show()
-            itemView.discount.text = discountViewModel.discount
-        } else {
-            itemView.discount.hide()
-            itemView.discountDivider.hide()
-        }
-
-        if (discountViewModel.date != null) {
+        if (discountVM.date != null) {
             itemView.expiration.show()
-            itemView.expiration.text = discountViewModel.date
+            itemView.expiration.text = discountVM.date
         } else {
             itemView.expiration.hide()
         }
 
-        if (discountViewModel.place != null) {
+        if (discountVM.place != null) {
             itemView.place.show()
             itemView.placeDivider.show()
-            itemView.place.text = discountViewModel.place
+            itemView.place.text = discountVM.place
         } else {
             itemView.place.hide()
             itemView.placeDivider.hide()
         }
 
-        itemView.setOnClickListener { callback?.invoke(discountViewModel) }
+        itemView.setOnClickListener { callback?.invoke(discountVM) }
     }
 
     companion object {
 
         fun build(
             parent: ViewGroup,
-            callback: ((DiscountViewModel) -> Unit)?
+            callback: ((DiscountVM) -> Unit)?
         ): DiscountHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.discount_row, parent, false)

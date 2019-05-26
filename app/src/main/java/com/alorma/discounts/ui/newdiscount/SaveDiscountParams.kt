@@ -1,19 +1,13 @@
 package com.alorma.discounts.ui.newdiscount
 
-import com.alorma.discounts.domain.BarcodeFormat
-import com.alorma.discounts.domain.DiscountType
+import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import java.util.*
 
 data class SaveDiscountParams(
-    val code: String? = null,
-    val format: BarcodeFormat? = null,
-    val discountType: DiscountType? = null,
+    val barcode: BarcodeCaptureResultData? = null,
+    val text: String? = null,
     val expirationDate: Date? = null,
-    val quantity: Double? = null
-) {
-    fun isValid() = code != null && format != null && if (quantity != null) {
-        discountType != null
-    } else {
-        true
-    }
-}
+    val place: SavePlace? = null
+)
+
+data class SavePlace(val id: String, val name: String)

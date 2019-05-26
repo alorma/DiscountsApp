@@ -1,26 +1,23 @@
 package com.alorma.discounts.data.mapper
 
 import com.alorma.discounts.data.entity.DiscountEntity
-import com.alorma.discounts.domain.DiscountType
-import com.alorma.discounts.domain.SaveDiscount
+import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
+import com.alorma.discounts.ui.newdiscount.SavePlace
+import java.util.*
 
 class DiscountEntityMapper {
 
-    fun mapSave(saveDiscount: SaveDiscount): DiscountEntity = DiscountEntity(
-        saveDiscount.code,
-        saveDiscount.format.name,
-        saveDiscount.text,
-        "BonPreu",
-        false,
-        saveDiscount.expirationDate?.time,
-        saveDiscount.discountQuantity,
-        mapDiscountType(saveDiscount.discountType)
+    fun mapSave(
+        barcode: BarcodeCaptureResultData?,
+        text: String?,
+        expirationDate: Date?,
+        place: SavePlace?
+    ): DiscountEntity = DiscountEntity(
+        UUID.randomUUID().toString(),
+        barcode?.code,
+        barcode?.format?.name,
+        text.orEmpty(),
+        place?.id,
+        expirationDate?.time
     )
-
-    private fun mapDiscountType(saveDiscount: DiscountType?): String? =
-        when (saveDiscount) {
-            DiscountType.Percentage -> "percent"
-            DiscountType.Currency -> "currency"
-            null -> null
-        }
 }

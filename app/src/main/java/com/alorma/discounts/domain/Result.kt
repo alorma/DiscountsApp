@@ -6,5 +6,8 @@ sealed class Result<T> {
         data class Data<T>(val t: T) : Result<T>()
     }
 
-    data class Error(val t: Throwable) : Result<Throwable>()
+    sealed class Fail(open val t: Throwable) : Result<Throwable>() {
+        data class Unsuccessful(override val t: Throwable) : Fail(t)
+        data class Error(override val t: Throwable) : Fail(t)
+    }
 }

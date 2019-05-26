@@ -5,29 +5,27 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.dao.DiscountsDao
 import com.alorma.discounts.ui.base.BaseViewModel
-import com.alorma.discounts.ui.discountslist.DiscountViewMapper
-import com.alorma.discounts.ui.discountslist.DiscountViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class DiscountDetailViewModel(
-    code: String,
+    discountId: String,
     private val discountsDao: DiscountsDao,
-    private val mapper: DiscountViewMapper
+    private val mapper: DiscountDetailViewMapper
 ) : BaseViewModel<DiscountDetailViewModel.View>() {
 
-    private val _discount = MediatorLiveData<DiscountViewModel>()
-    val discount: LiveData<DiscountViewModel>
+    private val _discount = MediatorLiveData<DiscountDetailVM>()
+    val discount: LiveData<DiscountDetailVM>
         get() = _discount
 
     init {
-        loadDiscount(code)
+        loadDiscount(discountId)
     }
 
-    private fun loadDiscount(discountCode: String) {
+    private fun loadDiscount(discountId: String) {
         viewModelScope.launch {
             val discount = async {
-                val entity = discountsDao.getByCode(discountCode)
+                val entity = discountsDao.getById(discountId)
                 mapper.mapItem(entity)
             }
 
