@@ -1,7 +1,6 @@
 package com.alorma.discounts.ui.newdiscount
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.barcode.DrawBarcodeFormatMapper
@@ -11,7 +10,6 @@ import com.alorma.discounts.domain.SaveDiscount
 import com.alorma.discounts.domain.usecase.SaveDiscountUseCase
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseViewModel
-import com.alorma.discounts.ui.discountslist.DiscountViewModel
 import kotlinx.coroutines.launch
 import net.codecision.glidebarcode.model.Barcode
 import java.util.*
@@ -21,10 +19,6 @@ class NewDiscountViewModel(
     private val newDiscountViewMapper: NewDiscountViewMapper,
     private val drawBarcodeFormatMapper: DrawBarcodeFormatMapper
 ) : BaseViewModel<NewDiscountViewModel.View>() {
-
-    private var _discount = MediatorLiveData<DiscountViewModel>()
-    val discount: LiveData<DiscountViewModel>
-        get() = _discount
 
     private var _barcode = MutableLiveData<Barcode>()
     val barcode: LiveData<Barcode>
@@ -79,7 +73,6 @@ class NewDiscountViewModel(
 
     fun reset() {
         _barcode = MutableLiveData()
-        _discount = MediatorLiveData()
     }
 
     interface View : BaseView {

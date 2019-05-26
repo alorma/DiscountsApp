@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.ui.barcode.BarcodeCaptureFragment
 import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.new_discount_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
@@ -34,11 +37,12 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         binding.lifecycleOwner = this
 
         configCode()
+        configExpiration()
 /*
         configCode()
         configPlace()
         configDiscountType()
-        configExpiration()
+
         saveButton.setOnClickListener {
             val title = titleField.editText?.text?.toString().orEmpty()
             val quantity = quantityField.editText?.text?.toString().orEmpty()
@@ -57,18 +61,36 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         codeFieldImage.setOnClickListener {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
-                    // DEBUG
-                    /*
-                    if (BuildConfig.DEBUG) {
-                        val result = BarcodeCaptureResultData("99601278037322003004", BarcodeFormat.FORMAT_CODE_128)
-                        newDiscountViewModel.onBarcodeCaptured(result)
-                    }
-                     */
-
                     val destination = NewDiscountFragmentDirections.actionNewDiscountFragmentToBarcodeCaptureFragment()
                     findNavController().navigate(destination)
                 }
             }
+        }
+    }
+
+    private fun configExpiration() {
+        expirationField.actionListener = {
+            MaterialDialog(requireContext()).show {
+                datePicker(
+                    requireFutureDate = true,
+                    currentDate = Calendar.getInstance().apply {
+                        timeInMillis = System.currentTimeMillis()
+                    }
+                ) { _, date ->
+                    val day = date.get(Calendar.DAY_OF_MONTH)
+                    val month = date.get(Calendar.MONTH)
+                    val year = date.get(Calendar.YEAR)
+                    this@NewDiscountFragment.expirationField.setText("$day/$month/$year")
+
+                    newDiscountViewModel.onExpirationDateChanged(date)
+                }
+            }
+        }
+    }
+
+    private fun configPlace() {
+        placeField.actionListener = {
+            // Listener to select place
         }
     }
 
@@ -90,11 +112,6 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     }
 
     /*
-        private fun configPlace() {
-            placeField.actionListener = {
-                // Listener to select place
-            }
-        }
 
         private fun configDiscountType() {
             val discountTypes = listOf(
@@ -111,25 +128,6 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
             }
         }
 
-        private fun configExpiration() {
-            expirationField.actionListener = {
-                MaterialDialog(this).show {
-                    datePicker(
-                        requireFutureDate = true,
-                        currentDate = Calendar.getInstance().apply {
-                            timeInMillis = System.currentTimeMillis()
-                        }
-                    ) { _, date ->
-                        val day = date.get(Calendar.DAY_OF_MONTH)
-                        val month = date.get(Calendar.MONTH)
-                        val year = date.get(Calendar.YEAR)
-                        this@NewDiscountFragment.expirationField.setText("$day/$month/$year")
-
-                        newDiscountViewModel.onExpirationDateChanged(date)
-                    }
-                }
-            }
-        }
 
         override fun showBarcodeData(code: String, format: String) {
             codeField.setText(code)
