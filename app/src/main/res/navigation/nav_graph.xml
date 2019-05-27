@@ -17,8 +17,8 @@
             app:destination="@id/discountDetailFragment"
             />
         <action
-            android:id="@+id/action_discountsListFragment_to_new_discount_graph"
-            app:destination="@id/new_discount_graph"
+            android:id="@+id/action_discountsListFragment_to_newDiscountActivity"
+            app:destination="@id/newDiscountActivity"
             />
 
     </fragment>

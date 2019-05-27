@@ -11,13 +11,12 @@ import com.alorma.discounts.R
 import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseFragment
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
-import kotlinx.android.synthetic.main.barcode_reader_fragment.*
+import kotlinx.android.synthetic.main.barcode_reader_fragment.barcodeView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uk.co.brightec.kbarcode.BarcodeView
 import uk.co.brightec.kbarcode.Options
 import uk.co.brightec.kbarcode.camera.OnCameraErrorListener
-
 
 class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
 
@@ -34,8 +33,8 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
         barcodeCaptureViewModel.view = this
 
         val options = Options.Builder()
-            .scaleType(BarcodeView.CENTER_CROP)
-            .build()
+                .scaleType(BarcodeView.CENTER_CROP)
+                .build()
 
         barcodeView.setOptions(options)
         lifecycle.addObserver(barcodeView)
@@ -53,9 +52,5 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
         newDiscountViewModel.onBarcodeCaptured(barcode)
 
         findNavController().popBackStack()
-    }
-
-    companion object {
-        const val EXTRA_RETURN = "extra_return"
     }
 }

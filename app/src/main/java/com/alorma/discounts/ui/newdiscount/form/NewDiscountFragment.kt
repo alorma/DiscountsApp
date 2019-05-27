@@ -1,7 +1,5 @@
 package com.alorma.discounts.ui.newdiscount.form
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +13,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.ui.base.BaseFragment
-import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment
-import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureResultData
 import kotlinx.android.synthetic.main.new_discount_fragment.codeFieldImage
 import kotlinx.android.synthetic.main.new_discount_fragment.descriptionField
 import kotlinx.android.synthetic.main.new_discount_fragment.expirationField
@@ -52,8 +48,7 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         codeFieldImage.setOnClickListener {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
-                    val destination = NewDiscountFragmentDirections
-                            .actionNewDiscountFragmentToBarcodeCaptureFragment()
+                    val destination = NewDiscountFragmentDirections.actionNewDiscountFragmentToBarcodeCaptureFragment()
                     findNavController().navigate(destination)
                 }
             }
@@ -93,25 +88,11 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_CAPTURE_BARCODE && resultCode == Activity.RESULT_OK) {
-            data?.getParcelableExtra<BarcodeCaptureResultData>(
-                    BarcodeCaptureFragment.EXTRA_RETURN)?.let {
-                newDiscountViewModel.onBarcodeCaptured(it)
-            }
-        }
-    }
-
     override fun onError(error: String) {
         Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
     }
 
     override fun close() {
         NavUtils.navigateUpFromSameTask(requireActivity())
-    }
-
-    companion object {
-        private const val RC_CAPTURE_BARCODE = 1131
     }
 }
