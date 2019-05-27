@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.newdiscount
+package com.alorma.discounts.ui.newdiscount.form
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,23 +6,24 @@ import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.barcode.DrawBarcodeFormatMapper
 import com.alorma.discounts.domain.Result
 import com.alorma.discounts.domain.usecase.SaveDiscountUseCase
-import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
+import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import net.codecision.glidebarcode.model.Barcode
 import java.util.*
 
 class NewDiscountViewModel(
-    private val saveDiscountUseCase: SaveDiscountUseCase,
-    private val newDiscountViewMapper: NewDiscountViewMapper,
-    private val drawBarcodeFormatMapper: DrawBarcodeFormatMapper
+        private val saveDiscountUseCase: SaveDiscountUseCase,
+        private val newDiscountViewMapper: NewDiscountViewMapper,
+        private val drawBarcodeFormatMapper: DrawBarcodeFormatMapper
 ) : BaseViewModel<NewDiscountViewModel.View>() {
 
     private var _barcode = MutableLiveData<Barcode>()
     val barcode: LiveData<Barcode>
         get() = _barcode
 
-    private var saveDiscountParams: SaveDiscountParams = SaveDiscountParams()
+    private var saveDiscountParams: SaveDiscountParams =
+            SaveDiscountParams()
 
     fun onBarcodeCaptured(capture: BarcodeCaptureResultData) {
         saveDiscountParams = saveDiscountParams.copy(

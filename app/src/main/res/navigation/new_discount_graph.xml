@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/new_discount_graph"
+            app:startDestination="@id/newDiscountFragment"
+    >
+
+    <fragment
+        android:id="@+id/newDiscountFragment"
+        android:name="com.alorma.discounts.ui.newdiscount.form.NewDiscountFragment"
+        android:label="NewDiscountFragment"
+        tools:layout="@layout/new_discount_fragment"
+        >
+        <action
+            android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
+            app:destination="@id/barcodeCaptureFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeCaptureFragment"
+        android:name="com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment"
+        android:label="BarcodeCaptureFragment"
+        tools:layout="@layout/barcode_reader_fragment"
+        />
+</navigation>

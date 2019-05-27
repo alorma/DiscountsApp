@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.newdiscount
+package com.alorma.discounts.ui.newdiscount.form
 
 import android.app.Activity
 import android.content.Intent
@@ -7,18 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.NavUtils
 import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
-import com.alorma.discounts.ui.barcode.BarcodeCaptureFragment
-import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
 import com.alorma.discounts.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.new_discount_fragment.*
+import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment
+import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureResultData
+import kotlinx.android.synthetic.main.new_discount_fragment.codeFieldImage
+import kotlinx.android.synthetic.main.new_discount_fragment.descriptionField
+import kotlinx.android.synthetic.main.new_discount_fragment.expirationField
+import kotlinx.android.synthetic.main.new_discount_fragment.placeField
+import kotlinx.android.synthetic.main.new_discount_fragment.saveButton
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.*
+import java.util.Calendar
 
 class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
@@ -47,7 +52,8 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         codeFieldImage.setOnClickListener {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
-                    val destination = NewDiscountFragmentDirections.actionNewDiscountFragmentToBarcodeCaptureFragment()
+                    val destination = NewDiscountFragmentDirections
+                            .actionNewDiscountFragmentToBarcodeCaptureFragment()
                     findNavController().navigate(destination)
                 }
             }
@@ -58,10 +64,10 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         expirationField.actionListener = {
             MaterialDialog(requireContext()).show {
                 datePicker(
-                    requireFutureDate = true,
-                    currentDate = Calendar.getInstance().apply {
-                        timeInMillis = System.currentTimeMillis()
-                    }
+                        requireFutureDate = true,
+                        currentDate = Calendar.getInstance().apply {
+                            timeInMillis = System.currentTimeMillis()
+                        }
                 ) { _, date ->
                     val day = date.get(Calendar.DAY_OF_MONTH)
                     val month = date.get(Calendar.MONTH)
@@ -90,7 +96,8 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_CAPTURE_BARCODE && resultCode == Activity.RESULT_OK) {
-            data?.getParcelableExtra<BarcodeCaptureResultData>(BarcodeCaptureFragment.EXTRA_RETURN)?.let {
+            data?.getParcelableExtra<BarcodeCaptureResultData>(
+                    BarcodeCaptureFragment.EXTRA_RETURN)?.let {
                 newDiscountViewModel.onBarcodeCaptured(it)
             }
         }
@@ -101,16 +108,10 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     }
 
     override fun close() {
-        findNavController().popBackStack()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        newDiscountViewModel.reset()
+        NavUtils.navigateUpFromSameTask(requireActivity())
     }
 
     companion object {
         private const val RC_CAPTURE_BARCODE = 1131
     }
-
 }

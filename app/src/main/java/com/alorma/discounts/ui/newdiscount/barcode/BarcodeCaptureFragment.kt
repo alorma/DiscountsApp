@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.barcode
+package com.alorma.discounts.ui.newdiscount.barcode
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.alorma.discounts.R
 import com.alorma.discounts.domain.BarcodeFormat
 import com.alorma.discounts.ui.base.BaseFragment
-import com.alorma.discounts.ui.newdiscount.NewDiscountViewModel
+import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
 import kotlinx.android.synthetic.main.barcode_reader_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

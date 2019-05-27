@@ -1,14 +1,14 @@
 package com.alorma.discounts.di
 
-import com.alorma.discounts.ui.barcode.BarcodeCaptureViewModel
 import com.alorma.discounts.ui.discountdetail.DiscountDetailFragmentArgs
+import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureViewModel
 import com.alorma.discounts.ui.discountdetail.DiscountDetailViewMapper
 import com.alorma.discounts.ui.discountdetail.DiscountDetailViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountsViewModel
 import com.alorma.discounts.ui.mapper.DateMapper
-import com.alorma.discounts.ui.newdiscount.NewDiscountViewMapper
-import com.alorma.discounts.ui.newdiscount.NewDiscountViewModel
+import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewMapper
+import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

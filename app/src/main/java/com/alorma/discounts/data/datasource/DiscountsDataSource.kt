@@ -3,7 +3,7 @@ package com.alorma.discounts.data.datasource
 import com.alorma.discounts.data.dao.DiscountsDao
 import com.alorma.discounts.data.mapper.DiscountEntityMapper
 import com.alorma.discounts.domain.Result
-import com.alorma.discounts.ui.newdiscount.SaveDiscountParams
+import com.alorma.discounts.ui.newdiscount.form.SaveDiscountParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

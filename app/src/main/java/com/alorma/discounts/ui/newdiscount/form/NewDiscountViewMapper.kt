@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.newdiscount
+package com.alorma.discounts.ui.newdiscount.form
 
 import com.alorma.discounts.domain.error.DiscountExistException
 

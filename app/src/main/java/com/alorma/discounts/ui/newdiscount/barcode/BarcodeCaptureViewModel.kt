@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.barcode
+package com.alorma.discounts.ui.newdiscount.barcode
 
 import com.alorma.discounts.data.barcode.CameraBarcodeFormatMapper
 import com.alorma.discounts.domain.BarcodeFormat

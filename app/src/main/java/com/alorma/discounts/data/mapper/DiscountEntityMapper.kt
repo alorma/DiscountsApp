@@ -1,9 +1,9 @@
 package com.alorma.discounts.data.mapper
 
 import com.alorma.discounts.data.entity.DiscountEntity
-import com.alorma.discounts.ui.barcode.BarcodeCaptureResultData
-import com.alorma.discounts.ui.newdiscount.SaveDiscountParams
-import com.alorma.discounts.ui.newdiscount.SavePlace
+import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureResultData
+import com.alorma.discounts.ui.newdiscount.form.SaveDiscountParams
+import com.alorma.discounts.ui.newdiscount.form.SavePlace
 import java.util.*
 
 class DiscountEntityMapper {
@@ -16,10 +16,10 @@ class DiscountEntityMapper {
     )
 
     private fun mapSave(
-        barcode: BarcodeCaptureResultData?,
-        text: String?,
-        expirationDate: Date?,
-        place: SavePlace?
+            barcode: BarcodeCaptureResultData?,
+            text: String?,
+            expirationDate: Date?,
+            place: SavePlace?
     ): DiscountEntity = DiscountEntity(
         UUID.randomUUID().toString(),
         barcode?.code,

@@ -3,41 +3,41 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/discountsListFragment">
+            app:startDestination="@id/discountsListFragment"
+    >
 
-    <fragment android:id="@+id/discountsListFragment"
-              android:name="com.alorma.discounts.ui.discountslist.DiscountsListFragment"
-              android:label="DiscountsListFragment"
-              tools:layout="@layout/discounts_list_fragment"
-    >
-        <action android:id="@+id/action_discountsListFragment_to_discountDetailFragment"
-                app:destination="@id/discountDetailFragment"
-        />
-        <action android:id="@+id/action_discountsListFragment_to_newDiscountFragment"
-                app:destination="@id/newDiscountFragment"
-                app:launchSingleTop="false"/>
+    <fragment
+        android:id="@+id/discountsListFragment"
+        android:name="com.alorma.discounts.ui.discountslist.DiscountsListFragment"
+        android:label="DiscountsListFragment"
+        tools:layout="@layout/discounts_list_fragment"
+        >
+        <action
+            android:id="@+id/action_discountsListFragment_to_discountDetailFragment"
+            app:destination="@id/discountDetailFragment"
+            />
+        <action
+            android:id="@+id/action_discountsListFragment_to_new_discount_graph"
+            app:destination="@id/new_discount_graph"
+            />
+
     </fragment>
-    <fragment android:id="@+id/discountDetailFragment"
-              android:name="com.alorma.discounts.ui.discountdetail.DiscountDetailFragment"
-              android:label="DiscountDetailFragment"
-              tools:layout="@layout/discount_detail_fragment"
-    >
+    <fragment
+        android:id="@+id/discountDetailFragment"
+        android:name="com.alorma.discounts.ui.discountdetail.DiscountDetailFragment"
+        android:label="DiscountDetailFragment"
+        tools:layout="@layout/discount_detail_fragment"
+        >
         <argument
-                android:name="discount_id"
-                app:argType="string"/>
+            android:name="discount_id"
+            app:argType="string"
+            />
     </fragment>
-
-    <fragment android:id="@+id/newDiscountFragment"
-              android:name="com.alorma.discounts.ui.newdiscount.NewDiscountFragment"
-              android:label="NewDiscountFragment"
-              tools:layout="@layout/new_discount_fragment"
-    >
-        <action android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
-                app:destination="@id/barcodeCaptureFragment"
+    <activity
+        android:id="@+id/newDiscountActivity"
+        android:name="com.alorma.discounts.ui.newdiscount.NewDiscountActivity"
+        android:label="NewDiscountActivity"
+        tools:layout="@layout/new_discount_fragment"
         />
-    </fragment>
-    <fragment android:id="@+id/barcodeCaptureFragment"
-              android:name="com.alorma.discounts.ui.barcode.BarcodeCaptureFragment"
-              android:label="BarcodeCaptureFragment"
-              tools:layout="@layout/barcode_reader_fragment"/>
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.alorma.discounts.ui.barcode
+package com.alorma.discounts.ui.newdiscount.barcode
 
 import android.os.Parcelable
 import com.alorma.discounts.domain.BarcodeFormat
