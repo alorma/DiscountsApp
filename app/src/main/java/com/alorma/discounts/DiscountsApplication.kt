@@ -14,7 +14,7 @@ class DiscountsApplication : Application() {
 
         startKoin {
             androidContext(this@DiscountsApplication)
-            modules(dataModule, domainModule, uiModule)
+            modules(listOf(dataModule, domainModule, uiModule))
         }
     }
 }
