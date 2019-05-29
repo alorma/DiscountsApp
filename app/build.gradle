@@ -58,7 +58,7 @@ dependencies {
     def fragment_version = "1.1.0-alpha09"
     implementation "androidx.fragment:fragment:$fragment_version"
 
-    def room_version = "2.1.0-beta01"
+    def room_version = "2.1.0-rc01"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -68,7 +68,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-    def koin_version = "2.0.0-rc-3"
+    def koin_version = "2.0.1"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
