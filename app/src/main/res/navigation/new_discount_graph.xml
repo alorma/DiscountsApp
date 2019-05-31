@@ -17,6 +17,8 @@
             app:destination="@id/barcodeCaptureFragment"
             app:popUpTo="@+id/new_discount_graph"
             />
+        <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
+                app:destination="@id/selectPlaceFragment"/>
     </fragment>
     <fragment
         android:id="@+id/barcodeCaptureFragment"
@@ -24,4 +26,12 @@
         android:label="BarcodeCaptureFragment"
         tools:layout="@layout/barcode_reader_fragment"
         />
+    <fragment android:id="@+id/newPlaceFragment" android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
+              android:label="Create place"/>
+    <fragment android:id="@+id/selectPlaceFragment"
+              android:name="com.alorma.discounts.ui.place.select.SelectPlaceFragment"
+              android:label="Select place">
+        <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
+                app:destination="@id/newPlaceFragment"/>
+    </fragment>
 </navigation>

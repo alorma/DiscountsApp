@@ -13,13 +13,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.new_discount_fragment.codeFieldImage
-import kotlinx.android.synthetic.main.new_discount_fragment.descriptionField
-import kotlinx.android.synthetic.main.new_discount_fragment.expirationField
-import kotlinx.android.synthetic.main.new_discount_fragment.placeField
-import kotlinx.android.synthetic.main.new_discount_fragment.saveButton
+import kotlinx.android.synthetic.main.new_discount_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.Calendar
+import java.util.*
 
 class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
@@ -59,10 +55,10 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
         expirationField.actionListener = {
             MaterialDialog(requireContext()).show {
                 datePicker(
-                        requireFutureDate = true,
-                        currentDate = Calendar.getInstance().apply {
-                            timeInMillis = System.currentTimeMillis()
-                        }
+                    requireFutureDate = true,
+                    currentDate = Calendar.getInstance().apply {
+                        timeInMillis = System.currentTimeMillis()
+                    }
                 ) { _, date ->
                     val day = date.get(Calendar.DAY_OF_MONTH)
                     val month = date.get(Calendar.MONTH)
@@ -77,7 +73,9 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     private fun configPlace() {
         placeField.actionListener = {
-            newDiscountViewModel.onPlaceSelected(SavePlace("la-sirena", "La Sirena"))
+            //newDiscountViewModel.onPlaceSelected(SavePlace("la-sirena", "La Sirena"))
+            val directions = NewDiscountFragmentDirections.actionNewDiscountFragmentToSelectPlaceFragment()
+            findNavController().navigate(directions)
         }
     }
 
