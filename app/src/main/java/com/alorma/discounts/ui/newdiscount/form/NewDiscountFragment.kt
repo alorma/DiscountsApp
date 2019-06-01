@@ -73,7 +73,6 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     private fun configPlace() {
         placeField.actionListener = {
-            //newDiscountViewModel.onPlaceSelected(SavePlace("la-sirena", "La Sirena"))
             val directions = NewDiscountFragmentDirections.actionNewDiscountFragmentToSelectPlaceFragment()
             findNavController().navigate(directions)
         }

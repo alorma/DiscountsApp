@@ -4,28 +4,28 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/new_discount_graph"
             app:startDestination="@id/newDiscountFragment"
-    >
+>
 
     <fragment
-        android:id="@+id/newDiscountFragment"
-        android:name="com.alorma.discounts.ui.newdiscount.form.NewDiscountFragment"
-        android:label="NewDiscountFragment"
-        tools:layout="@layout/new_discount_fragment"
-        >
+            android:id="@+id/newDiscountFragment"
+            android:name="com.alorma.discounts.ui.newdiscount.form.NewDiscountFragment"
+            android:label="NewDiscountFragment"
+            tools:layout="@layout/new_discount_fragment"
+    >
         <action
-            android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
-            app:destination="@id/barcodeCaptureFragment"
-            app:popUpTo="@+id/new_discount_graph"
-            />
+                android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
+                app:destination="@id/barcodeCaptureFragment"
+                app:popUpTo="@+id/new_discount_graph"
+        />
         <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
                 app:destination="@id/selectPlaceFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/barcodeCaptureFragment"
-        android:name="com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment"
-        android:label="BarcodeCaptureFragment"
-        tools:layout="@layout/barcode_reader_fragment"
-        />
+            android:id="@+id/barcodeCaptureFragment"
+            android:name="com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment"
+            android:label="BarcodeCaptureFragment"
+            tools:layout="@layout/barcode_reader_fragment"
+    />
     <fragment android:id="@+id/newPlaceFragment" android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
               android:label="Create place"/>
     <fragment android:id="@+id/selectPlaceFragment"
