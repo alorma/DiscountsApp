@@ -3,6 +3,7 @@ package com.alorma.discounts.ui
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.alorma.discounts.ui.widget.SelectorFieldView
 import com.bumptech.glide.Glide
 import net.codecision.glidebarcode.model.Barcode
 
@@ -20,4 +21,9 @@ fun bindBarcode(textView: TextView, barcode: Barcode?) {
     barcode?.let {
         textView.text = barcode.contents
     }
+}
+
+@BindingAdapter("setFieldText")
+fun bindBarcode(fieldView: SelectorFieldView, text: String?) {
+    fieldView.setText(text)
 }

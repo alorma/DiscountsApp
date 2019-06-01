@@ -2,6 +2,7 @@
 <layout>
     <data>
         <import type="com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel"/>
+        <import type="com.alorma.discounts.ui.newdiscount.form.SavePlace"/>
         <import type="android.view.View"/>
 
         <variable name="viewModel" type="com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel"/>
@@ -111,6 +112,7 @@
                 style="@style/SelectorField"
                 app:layout_constraintTop_toBottomOf="@id/expirationField"
                 android:hint="Place"
+                app:setFieldText="@{ viewModel.place.name }"
                 android:layout_margin="16dp"
         />
 

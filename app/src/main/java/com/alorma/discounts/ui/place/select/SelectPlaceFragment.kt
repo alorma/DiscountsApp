@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseFragment
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
+import com.alorma.discounts.ui.newdiscount.form.SavePlace
 import kotlinx.android.synthetic.main.select_place_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -30,6 +32,11 @@ class SelectPlaceFragment : BaseFragment(), SelectPlaceViewModel.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter.callback = {
+            newDiscountViewModel.onPlaceSelected(SavePlace(it.id, it.title))
+            findNavController().navigateUp()
+        }
 
         placeList.adapter = adapter
         placeList.layoutManager = LinearLayoutManager(requireContext())
