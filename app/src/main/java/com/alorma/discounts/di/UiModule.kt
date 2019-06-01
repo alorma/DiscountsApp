@@ -20,7 +20,7 @@ val uiModule = module {
     }
     viewModel { BarcodeCaptureViewModel(get()) }
     viewModel { NewDiscountViewModel(get(), get(), get()) }
-    viewModel { SelectPlaceViewModel() }
+    viewModel { SelectPlaceViewModel(get()) }
 
     factory { DiscountViewMapper(get()) }
     factory { DiscountDetailViewMapper(get(), get()) }
