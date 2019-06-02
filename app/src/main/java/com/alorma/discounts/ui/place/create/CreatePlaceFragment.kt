@@ -8,16 +8,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.datetime.timePicker
 import com.alorma.discounts.databinding.CreatePlaceFragmentBinding
 import com.alorma.discounts.ui.base.BaseFragment
+import com.alorma.discounts.ui.formatter.TimeFormat
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
 import com.alorma.discounts.ui.newdiscount.form.SavePlace
 import kotlinx.android.synthetic.main.create_place_fragment.*
+import org.joda.time.LocalTime
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
 
+    private val timeFormat by inject<TimeFormat>()
     private val createPlaceViewModel by viewModel<CreatePlaceViewModel>()
     private val newPlaceViewModel by sharedViewModel<NewDiscountViewModel>()
 
@@ -43,7 +51,33 @@ class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
 
         saveButton.setOnClickListener {
             val name = nameField.editText?.text?.toString().orEmpty()
-            createPlaceViewModel.save(name)
+            val address = addressField.editText?.text?.toString()
+            createPlaceViewModel.save(name, address)
+        }
+
+        openHourField.actionListener = { field ->
+            showTimeSelect { time ->
+                field.setText(timeFormat.format(time))
+                createPlaceViewModel.onOpenHourSelected(time)
+            }
+        }
+        closeHourField.actionListener = { field ->
+            showTimeSelect { time ->
+                field.setText(timeFormat.format(time))
+                createPlaceViewModel.onCloseHourSelected(time)
+            }
+        }
+    }
+
+    private fun showTimeSelect(timeSelected: (LocalTime) -> Unit) {
+        MaterialDialog(requireContext(), BottomSheet()).show {
+            timePicker { _, datetime ->
+                val time = LocalTime(
+                    datetime.get(Calendar.HOUR_OF_DAY),
+                    datetime.get(Calendar.MINUTE)
+                )
+                timeSelected(time)
+            }
         }
     }
 

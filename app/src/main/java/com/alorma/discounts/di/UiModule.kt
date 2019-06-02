@@ -5,7 +5,8 @@ import com.alorma.discounts.ui.discountdetail.DiscountDetailViewMapper
 import com.alorma.discounts.ui.discountdetail.DiscountDetailViewModel
 import com.alorma.discounts.ui.discountslist.DiscountViewMapper
 import com.alorma.discounts.ui.discountslist.DiscountsViewModel
-import com.alorma.discounts.ui.mapper.DateMapper
+import com.alorma.discounts.ui.formatter.DateFormat
+import com.alorma.discounts.ui.formatter.TimeFormat
 import com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureViewModel
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewMapper
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
@@ -24,8 +25,9 @@ val uiModule = module {
     viewModel { SelectPlaceViewModel(get()) }
     viewModel { CreatePlaceViewModel(get()) }
 
-    factory { DiscountViewMapper(get()) }
+    factory { DiscountViewMapper(get(), get()) }
     factory { DiscountDetailViewMapper(get(), get()) }
     factory { NewDiscountViewMapper() }
-    factory { DateMapper() }
+    factory { DateFormat() }
+    factory { TimeFormat() }
 }

@@ -9,7 +9,10 @@ sealed class ItemView {
 
     data class PlaceVM(
         val id: String,
-        val name: String
-    ) : ItemView()
+        val name: String,
+        val address: String? = null,
+        val openAt: String? = null,
+        val closeAt: String? = null
+        ) : ItemView()
 
 }

@@ -46,12 +46,10 @@ class NewDiscountViewModel(
         if (text.isBlank()) {
             return
         }
-        saveDiscountParams = saveDiscountParams.copy(place = SavePlace("la-sirena", "La sirena"))
         saveDiscountParams = saveDiscountParams.copy(text = text)
         viewModelScope.launch {
             when (val it = saveDiscountUseCase.save(saveDiscountParams)) {
                 is Result.Success<*> -> {
-                    reset()
                     view?.close()
                 }
                 is Result.Fail -> {
@@ -60,10 +58,6 @@ class NewDiscountViewModel(
                 }
             }
         }
-    }
-
-    fun reset() {
-        _barcode.postValue(null)
     }
 
     fun onPlaceSelected(savePlace: SavePlace) {

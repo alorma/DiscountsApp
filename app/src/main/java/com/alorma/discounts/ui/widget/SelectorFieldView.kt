@@ -13,7 +13,7 @@ open class SelectorFieldView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : TextInputLayout(context, attributeSet, defStyleAttr) {
 
-    var actionListener: (() -> Unit)? = null
+    var actionListener: ((SelectorFieldView) -> Unit)? = null
 
     init {
         val editText = object : TextInputEditText(this.context) {
@@ -51,7 +51,7 @@ open class SelectorFieldView @JvmOverloads constructor(
         error = null
         isActivated = true
         isHovered = false
-        actionListener?.invoke()
+        actionListener?.invoke(this)
     }
 
     override fun setError(errorText: CharSequence?) {

@@ -41,6 +41,7 @@ class SelectPlaceFragment : BaseFragment(), SelectPlaceViewModel.View {
         val appbarConfig = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appbarConfig)
         toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
 
         adapter.callback = {
             newDiscountViewModel.onPlaceSelected(SavePlace(it.id, it.title))

@@ -17,9 +17,9 @@ class CreatePlaceViewModel(
         UUID.randomUUID().toString()
     )
 
-    fun save(name: String) {
+    fun save(name: String, address: String?) {
         if (name.isNotEmpty()) {
-            newPlace = newPlace.copy(name = name)
+            newPlace = newPlace.copy(name = name, address = address)
 
             viewModelScope.launch {
                 placesDatasource.save(newPlace)
