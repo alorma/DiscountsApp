@@ -9,7 +9,7 @@
     <fragment
             android:id="@+id/newDiscountFragment"
             android:name="com.alorma.discounts.ui.newdiscount.form.NewDiscountFragment"
-            android:label="NewDiscountFragment"
+            android:label="New discount"
             tools:layout="@layout/new_discount_fragment"
     >
         <action
@@ -20,21 +20,28 @@
         <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
                 app:destination="@id/selectPlaceFragment"/>
     </fragment>
+
     <fragment
             android:id="@+id/barcodeCaptureFragment"
             android:name="com.alorma.discounts.ui.newdiscount.barcode.BarcodeCaptureFragment"
-            android:label="BarcodeCaptureFragment"
+            android:label="Capture barcode"
             tools:layout="@layout/barcode_reader_fragment"
     />
 
     <fragment android:id="@+id/selectPlaceFragment"
               android:name="com.alorma.discounts.ui.place.select.SelectPlaceFragment"
-              android:label="Select place">
+              android:label="Select place"
+              tools:layout="@layout/select_place_fragment">
+
         <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
-                app:destination="@id/newPlaceFragment"/>
+                app:destination="@id/newPlaceFragment"
+                app:popUpTo="@+id/selectPlaceFragment"
+                app:popUpToInclusive="false"/>
     </fragment>
 
     <fragment android:id="@+id/newPlaceFragment"
               android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
-              android:label="Create place"/>
+              android:label="Create place"
+              tools:layout="@layout/create_place_fragment"
+    />
 </navigation>

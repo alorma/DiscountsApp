@@ -29,6 +29,7 @@
             app:layout_constraintTop_toBottomOf="@id/appBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/select_place_row"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
