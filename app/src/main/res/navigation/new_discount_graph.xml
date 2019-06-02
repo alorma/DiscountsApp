@@ -26,12 +26,15 @@
             android:label="BarcodeCaptureFragment"
             tools:layout="@layout/barcode_reader_fragment"
     />
-    <fragment android:id="@+id/newPlaceFragment" android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
-              android:label="Create place"/>
+
     <fragment android:id="@+id/selectPlaceFragment"
               android:name="com.alorma.discounts.ui.place.select.SelectPlaceFragment"
               android:label="Select place">
         <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
                 app:destination="@id/newPlaceFragment"/>
     </fragment>
+
+    <fragment android:id="@+id/newPlaceFragment"
+              android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
+              android:label="Create place"/>
 </navigation>

@@ -17,7 +17,9 @@
         <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="Select place"/>
+                app:title="Select place"
+                android:id="@+id/toolbar"
+                app:menu="@menu/select_place_menu"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
