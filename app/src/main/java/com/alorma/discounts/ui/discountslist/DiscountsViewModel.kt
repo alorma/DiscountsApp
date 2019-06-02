@@ -1,6 +1,5 @@
 package com.alorma.discounts.ui.discountslist
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.dao.DiscountsDao
 import com.alorma.discounts.data.dao.PlacesDao
@@ -21,19 +20,16 @@ class DiscountsViewModel(
     private fun loadItems() {
         viewModelScope.launch {
 
-            if (placesDao.getAll().isEmpty()) {
+            val allPlaces = placesDao.getAllSync()
+            if (allPlaces.isEmpty()) {
                 val places = (1..3).map {
                     PlaceEntity("place_$it", "Place $it")
                 } + PlaceEntity("la-sirena", "La Sirena")
 
                 placesDao.insertAll(places)
-
-                placesDao.getAll().forEach {
-                    Log.i("Alorma", it.toString())
-                }
             }
 
-            val map = placesDao.getAll()
+            val map = placesDao.getAllSync()
                 .associateWith {
                     discountsDao.getAllByPlace(it.id)
                 }

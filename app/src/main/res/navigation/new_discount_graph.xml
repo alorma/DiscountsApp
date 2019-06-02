@@ -34,13 +34,12 @@
               tools:layout="@layout/select_place_fragment">
 
         <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
-                app:destination="@id/newPlaceFragment"
-                app:popUpTo="@+id/selectPlaceFragment"
+                app:destination="@id/createPlaceFragment"
                 app:popUpToInclusive="false"/>
     </fragment>
 
-    <fragment android:id="@+id/newPlaceFragment"
-              android:name="com.alorma.discounts.ui.place.create.NewPlaceFragment"
+    <fragment android:id="@+id/createPlaceFragment"
+              android:name="com.alorma.discounts.ui.place.create.CreatePlaceFragment"
               android:label="Create place"
               tools:layout="@layout/create_place_fragment"
     />

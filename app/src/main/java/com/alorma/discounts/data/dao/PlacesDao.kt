@@ -1,5 +1,6 @@
 package com.alorma.discounts.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,7 +11,10 @@ import com.alorma.discounts.data.entity.PlaceEntity
 interface PlacesDao {
 
     @Query("SELECT * FROM ${PlaceEntity.TABLE_NAME}")
-    suspend fun getAll(): List<PlaceEntity>
+    suspend fun getAllSync(): List<PlaceEntity>
+
+    @Query("SELECT * FROM ${PlaceEntity.TABLE_NAME}")
+    fun getAll(): LiveData<List<PlaceEntity>>
 
     @Query("SELECT * FROM ${PlaceEntity.TABLE_NAME} WHERE id = :placeId")
     suspend fun getById(placeId: String): PlaceEntity

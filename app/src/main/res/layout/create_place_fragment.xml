@@ -34,15 +34,33 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.alorma.discounts.ui.widget.SelectorFieldView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/openHoursField"
-                style="@style/SelectorField"
-                app:layout_constraintTop_toBottomOf="@id/descriptionField"
-                android:hint="Open hours"
-                android:layout_margin="16dp"
-        />
+                android:orientation="horizontal">
+
+            <com.alorma.discounts.ui.widget.SelectorFieldView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/openHourField"
+                    style="@style/SelectorField"
+                    android:layout_weight="1"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionField"
+                    android:hint="Opens at"
+                    android:layout_margin="16dp"
+            />
+
+            <com.alorma.discounts.ui.widget.SelectorFieldView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/closeHourField"
+                    style="@style/SelectorField"
+                    android:layout_weight="1"
+                    android:hint="Closes at"
+                    android:layout_margin="16dp"
+            />
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"

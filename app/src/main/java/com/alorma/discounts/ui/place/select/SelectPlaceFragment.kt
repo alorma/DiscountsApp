@@ -16,11 +16,12 @@ import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
 import com.alorma.discounts.ui.newdiscount.form.SavePlace
 import kotlinx.android.synthetic.main.select_place_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectPlaceFragment : BaseFragment(), SelectPlaceViewModel.View {
 
     private val newDiscountViewModel by sharedViewModel<NewDiscountViewModel>()
-    private val selectPlaceViewModel by sharedViewModel<SelectPlaceViewModel>()
+    private val selectPlaceViewModel by viewModel<SelectPlaceViewModel>()
 
     private val adapter: SelectPlaceAdapter by lazy { SelectPlaceAdapter() }
 
