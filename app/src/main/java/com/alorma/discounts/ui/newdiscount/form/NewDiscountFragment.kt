@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.NavUtils
 import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
+import com.alorma.discounts.R
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.new_discount_fragment.*
@@ -29,6 +29,9 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener { close() }
 
         newDiscountViewModel.view = this
         binding.viewModel = newDiscountViewModel
@@ -90,6 +93,6 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     }
 
     override fun close() {
-        NavUtils.navigateUpFromSameTask(requireActivity())
+        requireActivity().finish()
     }
 }

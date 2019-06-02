@@ -26,7 +26,8 @@
             <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    app:title="New discount"/>
+                    app:title="New discount"
+                    android:id="@+id/toolbar"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
