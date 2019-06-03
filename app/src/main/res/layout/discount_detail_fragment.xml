@@ -22,6 +22,7 @@
                     android:id="@+id/toolbar"
                     app:layout_collapseMode="pin"
                     app:title="@{ viewModel.discount.title }"
+                    app:menu="@menu/discount_detail_menu"
             />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -33,6 +34,7 @@
                 android:padding="20dp"
                 android:background="@color/barcode_background"
                 app:loadBarcode="@{ viewModel.discount.barcode }"
+                android:contentDescription="@{ viewModel.discount.barcode.contents }"
         />
 
         <TextView
