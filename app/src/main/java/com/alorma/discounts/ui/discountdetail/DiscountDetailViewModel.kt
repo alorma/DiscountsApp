@@ -1,11 +1,11 @@
 package com.alorma.discounts.ui.discountdetail
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.alorma.discounts.data.dao.DiscountsDao
+import com.alorma.discounts.data.getDistinct
 import com.alorma.discounts.ui.base.BaseViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class DiscountDetailViewModel(
@@ -14,38 +14,31 @@ class DiscountDetailViewModel(
     private val mapper: DiscountDetailViewMapper
 ) : BaseViewModel<DiscountDetailViewModel.View>() {
 
-    private val _discount = MediatorLiveData<DiscountDetailVM>()
-    val discount: LiveData<DiscountDetailVM>
-        get() = _discount
-
-    init {
-        loadDiscount(discountId)
-    }
-
-    private fun loadDiscount(discountId: String) {
-        viewModelScope.launch {
-            val discount = async {
-                val entity = discountsDao.getById(discountId)
-                mapper.mapItem(entity)
-            }
-
-            discount.await().let { discountModel ->
-                _discount.postValue(discountModel)
-            }
+    val discount: LiveData<DiscountDetailVM> = discountsDao.getById(discountId)
+        .getDistinct()
+        .map {
+            mapper.mapItem(it)
         }
-    }
 
     fun onDeleteClick() {
-        _discount.value?.title?.let { discountName ->
+        discount.value?.title?.let { discountName ->
             view?.showDeleteConfirmation(discountName)
         }
     }
 
     fun onDeleteConfirm() {
         viewModelScope.launch {
-            _discount.value?.id?.let { discountId ->
+            discount.value?.id?.let { discountId ->
                 discountsDao.delete(discountId)
                 view?.close()
+            }
+        }
+    }
+
+    fun changeUsedStatus() {
+        viewModelScope.launch {
+            discount.value?.let { discount ->
+                discountsDao.updateUsed(discount.id, discount.used.not())
             }
         }
     }

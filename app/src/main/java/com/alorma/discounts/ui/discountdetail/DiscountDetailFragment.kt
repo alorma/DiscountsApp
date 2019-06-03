@@ -48,6 +48,8 @@ class DiscountDetailFragment : BaseFragment(), DiscountDetailViewModel.View {
             }
             true
         }
+
+        changeUsedStatus.setOnClickListener { detailViewModel.changeUsedStatus() }
     }
 
     override fun showDeleteConfirmation(name: String) {

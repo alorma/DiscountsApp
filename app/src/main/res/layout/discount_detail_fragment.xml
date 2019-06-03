@@ -45,6 +45,15 @@
                 app:loadBarcode="@{ viewModel.discount.barcode }"
         />
 
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_margin="16dp"
+                android:text="@{viewModel.discount.used ? @string/discount_mark_as_not_used : @string/discount_mark_as_used }"
+                android:id="@+id/changeUsedStatus"
+        />
+
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

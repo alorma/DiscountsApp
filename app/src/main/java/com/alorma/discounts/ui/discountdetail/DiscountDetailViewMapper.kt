@@ -15,7 +15,8 @@ class DiscountDetailViewMapper(
         createBarcode(it),
         it.text,
         it.place,
-        it.expirationDate?.let { dateFormat.mapView(it) }
+        it.expirationDate?.let { dateFormat.mapView(it) },
+        it.used
     )
 
     private fun createBarcode(it: DiscountEntity): Barcode? =

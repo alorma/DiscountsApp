@@ -7,5 +7,6 @@ data class DiscountDetailVM(
     val barcode: Barcode?,
     val title: String,
     val place: String?,
-    val date: String?
+    val date: String?,
+    val used: Boolean
 )
