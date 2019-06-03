@@ -35,5 +35,23 @@ class DiscountDetailViewModel(
         }
     }
 
-    interface View : BaseView
+    fun onDeleteClick() {
+        _discount.value?.title?.let { discountName ->
+            view?.showDeleteConfirmation(discountName)
+        }
+    }
+
+    fun onDeleteConfirm() {
+        viewModelScope.launch {
+            _discount.value?.id?.let { discountId ->
+                discountsDao.delete(discountId)
+                view?.close()
+            }
+        }
+    }
+
+    interface View : BaseView {
+        fun showDeleteConfirmation(name: String)
+        fun close()
+    }
 }

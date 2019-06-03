@@ -23,4 +23,7 @@ interface DiscountsDao {
 
     @Insert
     suspend fun insertAll(discounts: List<DiscountEntity>)
+
+    @Query("DELETE FROM ${DiscountEntity.TABLE_NAME} WHERE id = :discountId")
+    suspend fun delete(discountId: String)
 }

@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.alorma.discounts.R
 import com.alorma.discounts.databinding.DiscountDetailFragmentBinding
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.discount_detail_fragment.*
@@ -29,6 +31,8 @@ class DiscountDetailFragment : BaseFragment(), DiscountDetailViewModel.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        detailViewModel.view = this
         binding.lifecycleOwner = this
         binding.viewModel = detailViewModel
 
@@ -36,5 +40,30 @@ class DiscountDetailFragment : BaseFragment(), DiscountDetailViewModel.View {
         val appbarConfig = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appbarConfig)
 
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_edit -> {
+                }
+                R.id.action_delete -> detailViewModel.onDeleteClick()
+            }
+            true
+        }
+    }
+
+    override fun showDeleteConfirmation(name: String) {
+        MaterialDialog(requireContext()).show {
+            title(text = "Confirm")
+            message(text = "Sure to delete $name")
+            positiveButton(text = "delete") {
+                detailViewModel.onDeleteConfirm()
+            }
+            negativeButton(text = "Cancel") {
+                it.dismiss()
+            }
+        }
+    }
+
+    override fun close() {
+        findNavController().navigateUp()
     }
 }
