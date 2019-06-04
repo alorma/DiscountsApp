@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.datetime.timePicker
 import com.alorma.discounts.databinding.CreatePlaceFragmentBinding
+import com.alorma.discounts.extensions.setupBack
 import com.alorma.discounts.ui.base.BaseFragment
 import com.alorma.discounts.ui.formatter.TimeFormat
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
@@ -44,10 +42,7 @@ class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = findNavController()
-        val appbarConfig = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appbarConfig)
-        toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
+        setupBack(toolbar)
 
         saveButton.setOnClickListener {
             val name = nameField.editText?.text?.toString().orEmpty()

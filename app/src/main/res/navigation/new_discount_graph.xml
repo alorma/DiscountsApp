@@ -18,7 +18,7 @@
                 app:popUpTo="@+id/new_discount_graph"
         />
         <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
-                app:destination="@id/selectPlaceFragment"/>
+                app:destination="@id/selectPlaceFragment" app:popUpTo="@+id/newDiscountFragment"/>
     </fragment>
 
     <fragment
@@ -35,7 +35,7 @@
 
         <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
                 app:destination="@id/createPlaceFragment"
-                app:popUpToInclusive="false"/>
+                app:popUpToInclusive="false" app:popUpTo="@+id/createPlaceFragment"/>
     </fragment>
 
     <fragment android:id="@+id/createPlaceFragment"

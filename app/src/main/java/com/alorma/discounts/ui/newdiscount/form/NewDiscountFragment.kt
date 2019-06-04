@@ -10,8 +10,8 @@ import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
-import com.alorma.discounts.R
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
+import com.alorma.discounts.extensions.setupBack
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.new_discount_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -30,8 +30,7 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolbar.setNavigationOnClickListener { close() }
+        setupBack(toolbar)
 
         newDiscountViewModel.view = this
         binding.viewModel = newDiscountViewModel
