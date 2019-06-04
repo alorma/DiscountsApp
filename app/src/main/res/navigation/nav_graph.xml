@@ -3,8 +3,9 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/discountsListFragment"
-    >
+            app:startDestination="@id/discountsListFragment">
+
+    <include app:graph="@navigation/new_discount_graph" />
 
     <fragment
         android:id="@+id/discountsListFragment"
@@ -18,7 +19,7 @@
             />
         <action
             android:id="@+id/action_discountsListFragment_to_newDiscountActivity"
-            app:destination="@id/newDiscountActivity"
+            app:destination="@id/new_discount_graph"
             />
 
     </fragment>
@@ -33,11 +34,5 @@
             app:argType="string"
             />
     </fragment>
-    <activity
-        android:id="@+id/newDiscountActivity"
-        android:name="com.alorma.discounts.ui.newdiscount.NewDiscountActivity"
-        android:label="NewDiscountActivity"
-        tools:layout="@layout/new_discount_fragment"
-        />
 
 </navigation>
