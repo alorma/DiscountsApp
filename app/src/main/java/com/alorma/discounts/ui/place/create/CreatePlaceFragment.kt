@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.datetime.timePicker
@@ -45,9 +43,8 @@ class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = findNavController()
-        val appbarConfig = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appbarConfig)
         toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
 
         saveButton.setOnClickListener {
             val name = nameField.editText?.text?.toString().orEmpty()
@@ -83,6 +80,6 @@ class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
 
     override fun close(savePlace: SavePlace) {
         newPlaceViewModel.onPlaceSelected(savePlace)
-        findNavController().navigateUp()
+        activity?.onBackPressed()
     }
 }

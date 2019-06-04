@@ -66,6 +66,6 @@ class DiscountDetailFragment : BaseFragment(), DiscountDetailViewModel.View {
     }
 
     override fun close() {
-        findNavController().navigateUp()
+        activity?.onBackPressed()
     }
 }

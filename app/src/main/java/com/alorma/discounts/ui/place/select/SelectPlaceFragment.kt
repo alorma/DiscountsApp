@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseFragment
@@ -37,15 +36,22 @@ class SelectPlaceFragment : BaseFragment(), SelectPlaceViewModel.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = findNavController()
-        val appbarConfig = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appbarConfig)
-        toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(navController) }
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.createPlaceFragment -> {
+                    val action = SelectPlaceFragmentDirections.actionSelectPlaceFragmentToNewPlaceFragment()
+                    Navigation.findNavController(view).navigate(action)
+                    true
+                }
+                else -> false
+            }
+        }
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
 
         adapter.callback = {
             newDiscountViewModel.onPlaceSelected(SavePlace(it.id, it.title))
-            navController.navigateUp()
+            activity?.onBackPressed()
         }
 
         placeList.adapter = adapter

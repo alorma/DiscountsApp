@@ -51,6 +51,6 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
 
         newDiscountViewModel.onBarcodeCaptured(barcode)
 
-        findNavController().popBackStack()
+        activity?.onBackPressed()
     }
 }

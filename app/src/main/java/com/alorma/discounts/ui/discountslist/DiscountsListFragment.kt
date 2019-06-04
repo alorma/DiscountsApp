@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
@@ -41,11 +42,11 @@ class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
 
     override fun openDetail(discountId: String) {
         val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToDiscountDetailFragment(discountId)
-        findNavController().navigate(directions)
+        Navigation.findNavController(view!!).navigate(directions)
     }
 
     override fun openNewDiscount() {
         val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToNewDiscountActivity()
-        findNavController().navigate(directions)
+        Navigation.findNavController(view!!).navigate(directions)
     }
 }

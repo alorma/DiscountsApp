@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
@@ -48,7 +49,7 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
             runWithPermissions(Permission.CAMERA) {
                 if (it.isAllGranted()) {
                     val destination = NewDiscountFragmentDirections.actionNewDiscountFragmentToBarcodeCaptureFragment()
-                    findNavController().navigate(destination)
+                    Navigation.findNavController(view!!).navigate(destination)
                 }
             }
         }
@@ -77,7 +78,7 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     private fun configPlace() {
         placeField.actionListener = {
             val directions = NewDiscountFragmentDirections.actionNewDiscountFragmentToSelectPlaceFragment()
-            findNavController().navigate(directions)
+            Navigation.findNavController(view!!).navigate(directions)
         }
     }
 
@@ -93,6 +94,6 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     }
 
     override fun close() {
-        requireActivity().finish()
+        activity?.onBackPressed()
     }
 }
