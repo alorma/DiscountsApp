@@ -15,7 +15,7 @@
         <action
                 android:id="@+id/action_newDiscountFragment_to_barcodeCaptureFragment"
                 app:destination="@id/barcodeCaptureFragment"
-                app:popUpTo="@+id/new_discount_graph"
+                app:popUpTo="@+id/newDiscountFragment"
         />
         <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
                 app:destination="@id/selectPlaceFragment" app:popUpTo="@+id/newDiscountFragment"/>
@@ -35,7 +35,7 @@
 
         <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
                 app:destination="@id/createPlaceFragment"
-                app:popUpToInclusive="false" app:popUpTo="@+id/createPlaceFragment"/>
+                app:popUpToInclusive="false" app:popUpTo="@+id/selectPlaceFragment"/>
     </fragment>
 
     <fragment android:id="@+id/createPlaceFragment"
