@@ -18,7 +18,8 @@
                 app:popUpTo="@+id/newDiscountFragment"
         />
         <action android:id="@+id/action_newDiscountFragment_to_selectPlaceFragment"
-                app:destination="@id/selectPlaceFragment" app:popUpTo="@+id/newDiscountFragment"/>
+                app:destination="@id/selectPlaceFragment"
+                app:popUpTo="@+id/newDiscountFragment"/>
     </fragment>
 
     <fragment
