@@ -10,6 +10,7 @@ import com.afollestad.assent.Permission
 import com.afollestad.assent.runWithPermissions
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
+import com.alorma.discounts.R
 import com.alorma.discounts.databinding.NewDiscountFragmentBinding
 import com.alorma.discounts.extensions.setupBack
 import com.alorma.discounts.ui.base.BaseFragment
@@ -30,7 +31,7 @@ class NewDiscountFragment : BaseFragment(), NewDiscountViewModel.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupBack(toolbar)
+        setupBack(toolbar, R.id.new_discount_host_fragment)
 
         newDiscountViewModel.view = this
         binding.viewModel = newDiscountViewModel
