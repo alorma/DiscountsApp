@@ -1,5 +1,6 @@
 package com.alorma.discounts.ui.discountdetail
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,9 @@ class DiscountDetailViewModel(
     fun onDeleteConfirm() {
         viewModelScope.launch {
             discount.value?.id?.let { discountId ->
+                (view as? LifecycleOwner)?.let {
+                    discount.removeObservers(it)
+                }
                 discountsDao.delete(discountId)
                 view?.close()
             }
