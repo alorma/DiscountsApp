@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alorma.discounts.NavGraphDirections
 import com.alorma.discounts.R
 import com.alorma.discounts.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.discounts_list_fragment.addDiscount
-import kotlinx.android.synthetic.main.discounts_list_fragment.discountsList
+import kotlinx.android.synthetic.main.discounts_list_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
@@ -45,7 +45,7 @@ class DiscountsListFragment : BaseFragment(), DiscountsViewModel.View {
     }
 
     override fun openNewDiscount() {
-        val directions = DiscountsListFragmentDirections.actionDiscountsListFragmentToNewDiscountActivity()
+        val directions = NavGraphDirections.discountListToNewDiscount()
         findNavController().navigate(directions)
     }
 }
