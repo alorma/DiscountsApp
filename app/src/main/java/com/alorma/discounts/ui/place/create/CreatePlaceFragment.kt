@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.datetime.timePicker
+import com.alorma.discounts.R
 import com.alorma.discounts.databinding.CreatePlaceFragmentBinding
 import com.alorma.discounts.extensions.setupBack
 import com.alorma.discounts.ui.base.BaseFragment
@@ -78,6 +81,6 @@ class CreatePlaceFragment : BaseFragment(), CreatePlaceViewModel.View {
 
     override fun close(savePlace: SavePlace) {
         newPlaceViewModel.onPlaceSelected(savePlace)
-        findNavController().navigateUp()
+        findNavController().popBackStack(R.id.newDiscountFragment, false)
     }
 }

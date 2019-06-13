@@ -34,9 +34,10 @@
               android:label="Select place"
               tools:layout="@layout/select_place_fragment">
 
-        <action android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
-                app:destination="@id/createPlaceFragment"
-                app:popUpToInclusive="false" app:popUpTo="@+id/selectPlaceFragment"/>
+        <action
+            android:id="@+id/action_selectPlaceFragment_to_newPlaceFragment"
+            app:destination="@id/createPlaceFragment"
+            app:popUpTo="@+id/selectPlaceFragment" />
     </fragment>
 
     <fragment android:id="@+id/createPlaceFragment"

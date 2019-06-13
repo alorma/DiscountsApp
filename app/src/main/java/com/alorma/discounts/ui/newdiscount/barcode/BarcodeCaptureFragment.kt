@@ -9,6 +9,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.alorma.discounts.R
 import com.alorma.discounts.domain.BarcodeFormat
+import com.alorma.discounts.extensions.navigateUp
 import com.alorma.discounts.ui.base.BaseFragment
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
 import kotlinx.android.synthetic.main.barcode_reader_fragment.barcodeView
@@ -50,7 +51,6 @@ class BarcodeCaptureFragment : BaseFragment(), BarcodeCaptureViewModel.View {
         val barcode = BarcodeCaptureResultData(code, format)
 
         newDiscountViewModel.onBarcodeCaptured(barcode)
-
-        findNavController().popBackStack()
+        navigateUp()
     }
 }

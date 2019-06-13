@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alorma.discounts.R
+import com.alorma.discounts.extensions.navigateUp
 import com.alorma.discounts.extensions.setupBack
 import com.alorma.discounts.ui.base.BaseFragment
 import com.alorma.discounts.ui.newdiscount.form.NewDiscountViewModel
@@ -37,11 +38,22 @@ class SelectPlaceFragment : BaseFragment(), SelectPlaceViewModel.View {
         super.onViewCreated(view, savedInstanceState)
 
         setupBack(toolbar)
-        toolbar.setOnMenuItemClickListener { it.onNavDestinationSelected(findNavController()) }
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.createPlaceFragment -> {
+                    val destination =
+                        SelectPlaceFragmentDirections.actionSelectPlaceFragmentToNewPlaceFragment()
+                    findNavController().navigate(destination)
+                    true
+                }
+                else ->
+                    false
+            }
+        }
 
         adapter.callback = {
             newDiscountViewModel.onPlaceSelected(SavePlace(it.id, it.title))
-            findNavController().popBackStack()
+            navigateUp()
         }
 
         placeList.adapter = adapter

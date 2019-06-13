@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alorma.discounts.R
 import com.alorma.discounts.databinding.DiscountDetailFragmentBinding
+import com.alorma.discounts.extensions.navigateUp
 import com.alorma.discounts.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.discount_detail_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -66,6 +67,6 @@ class DiscountDetailFragment : BaseFragment(), DiscountDetailViewModel.View {
     }
 
     override fun close() {
-        findNavController().navigateUp()
+        navigateUp()
     }
 }
