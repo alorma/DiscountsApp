@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,14 +30,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ScanResult _scanResult;
 
   void _scanBarcode() async {
     var result = await BarcodeScanner.scan();
-
-    print(result.type);
-    print(result.rawContent);
-    print(result.format);
-    print(result.formatNote);
+    setState(() {
+      _scanResult = result;
+    });
   }
 
   @override
@@ -46,12 +45,32 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _scanResult != null
+                ? scanResultWidget(context)
+                : Text('Scan first ticket barcode'),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _scanBarcode,
         tooltip: 'Scan',
         child: Icon(Icons.scanner),
       ),
+    );
+  }
+
+  Column scanResultWidget(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text('Type: ${_scanResult.type}'),
+        Text('Raw: ${_scanResult.rawContent}'),
+        Text('Format: ${_scanResult.format}'),
+        Text('Format note: ${_scanResult.formatNote}'),
+      ],
     );
   }
 }
