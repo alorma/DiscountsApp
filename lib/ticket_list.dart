@@ -47,19 +47,25 @@ class TicketListScreenState extends State<TicketListScreen> {
       future: futureTickets,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (ctx, index) {
-              return Text(snapshot.data[index].code);
-            },
-          );
+          return _ticketsContent(snapshot);
         } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+          return _ticketsError(snapshot);
         }
         return CircularProgressIndicator();
       },
     );
   }
+
+  ListView _ticketsContent(AsyncSnapshot snapshot) {
+    return ListView.builder(
+          itemCount: snapshot.data.length,
+          itemBuilder: (ctx, index) {
+            return Text(snapshot.data[index].code);
+          },
+        );
+  }
+
+  Text _ticketsError(AsyncSnapshot snapshot) => Text("${snapshot.error}");
 
   Future<List<Ticket>> _fetchTickets(String groupId) async {
     return _doNetRequest(groupId)
