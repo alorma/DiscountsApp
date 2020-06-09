@@ -1,4 +1,4 @@
-import 'package:barcode_scan/barcode_scan.dart';
+import 'package:app/new_ticket.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,16 +6,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Discounts',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(title: 'Discounts at your palm'),
+        '/newTicket': (context) => CreateTicketScreen()
+      },
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Discounts at your palm'),
     );
   }
 }
@@ -30,15 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScanResult _scanResult;
-
-  void _scanBarcode() async {
-    var result = await BarcodeScanner.scan();
-    setState(() {
-      _scanResult = result;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,29 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _scanResult != null
-                ? scanResultWidget(context)
-                : Text('Scan first ticket barcode'),
-          ],
+          children: <Widget>[],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _scanBarcode,
-        tooltip: 'Scan',
-        child: Icon(Icons.scanner),
+        onPressed: () {
+          Navigator.pushNamed(context, '/newTicket');
+        },
+        tooltip: 'Add',
+        child: Icon(Icons.add),
       ),
-    );
-  }
-
-  Column scanResultWidget(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text('Type: ${_scanResult.type}'),
-        Text('Raw: ${_scanResult.rawContent}'),
-        Text('Format: ${_scanResult.format}'),
-        Text('Format note: ${_scanResult.formatNote}'),
-      ],
     );
   }
 }
