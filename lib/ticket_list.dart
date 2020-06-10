@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'models/ticket.dart';
 
@@ -58,12 +59,29 @@ class TicketListScreenState extends State<TicketListScreen> {
 
   ListView _ticketsContent(AsyncSnapshot snapshot) {
     return ListView.builder(
-          itemCount: snapshot.data.length,
-          itemBuilder: (ctx, index) {
-            var ticket = snapshot.data[index] as Ticket;
-            return Text(ticket.barcodeCode);
-          },
+      itemCount: snapshot.data.length,
+      itemBuilder: (ctx, index) {
+        var ticket = snapshot.data[index] as Ticket;
+        var dateFormat = DateFormat('dd-MM-yyyy');
+        return Card(
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: <Widget>[
+                Text(ticket.barcodeCode),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.access_time),
+                    Text(dateFormat.format(ticket.expireDate))
+                  ],
+                )
+              ],
+            ),
+          ),
+          margin: EdgeInsets.all(4),
         );
+      },
+    );
   }
 
   Text _ticketsError(AsyncSnapshot snapshot) => Text("${snapshot.error}");
