@@ -60,7 +60,8 @@ class TicketListScreenState extends State<TicketListScreen> {
     return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (ctx, index) {
-            return Text(snapshot.data[index].code);
+            var ticket = snapshot.data[index] as Ticket;
+            return Text(ticket.barcodeCode);
           },
         );
   }

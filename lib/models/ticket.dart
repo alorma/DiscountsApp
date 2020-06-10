@@ -1,14 +1,16 @@
 class Ticket {
   final String id;
   final String store;
-  final String code;
+  final String barcodeCode;
+  final String barcodeType;
 
-  Ticket({this.id, this.code, this.store});
+  Ticket({this.id, this.barcodeCode, this.barcodeType, this.store});
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
       id: json['id'],
-      code: json['code'],
+      barcodeCode: json['barcodeCode'],
+      barcodeType: json['barcodeType'],
       store: json['store'],
     );
   }
