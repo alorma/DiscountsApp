@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/icons/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -63,6 +64,12 @@ class TicketListScreenState extends State<TicketListScreen> {
       itemBuilder: (ctx, index) {
         var ticket = snapshot.data[index] as Ticket;
         var dateFormat = DateFormat('dd-MM-yyyy');
+        var discountSymbol;
+        if (ticket.discountType == 'discount') {
+          discountSymbol = CustomIcons.percent;
+        } else {
+          discountSymbol = Icons.euro_symbol;
+        }
         return Card(
           child: Padding(
             padding: EdgeInsets.all(8),
@@ -71,7 +78,19 @@ class TicketListScreenState extends State<TicketListScreen> {
                 Text(ticket.barcodeCode),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.access_time),
+                    Icon(
+                      discountSymbol,
+                      size: 16,
+                    ),
+                    Text(ticket.discountAmount)
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.access_time,
+                      size: 16,
+                    ),
                     Text(dateFormat.format(ticket.expireDate))
                   ],
                 )
