@@ -10,25 +10,17 @@ class CreateTicketScreen extends StatefulWidget {
 }
 
 class CreateTicketScreenState extends State<CreateTicketScreen> {
-
   DateTime selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
   ScanResult _scanResult;
 
   var dateTextController = TextEditingController();
+  var codeTextController = TextEditingController();
 
-/*
-  void _scanBarcode() async {
-    var result = await BarcodeScanner.scan();
-    setState(() {
-      _scanResult = result;
-    });
-  }
- */
-
-@override
+  @override
   void initState() {
     dateTextController.text = formatSelectedDate();
+    codeTextController.text = "";
     super.initState();
   }
 
@@ -70,6 +62,8 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
             buildTitleTextField(),
             buildFormSpace(16),
             buildExpireTextField(context),
+            buildFormSpace(16),
+            buildBarcodeTextField(context),
           ],
         ),
       ),
@@ -117,14 +111,45 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
       },
       validator: (value) {
         if (value.isEmpty) {
-          return 'Please enter some text';
+          return 'Please enter date';
         }
         return null;
       },
     );
   }
 
-  String formatSelectedDate() => DateFormat('yyyy / MM / dd').format(selectedDate);
+  Widget buildBarcodeTextField(BuildContext context) {
+    return TextFormField(
+      controller: codeTextController,
+      decoration: InputDecoration(
+        labelText: "Code",
+        border: OutlineInputBorder(),
+        suffixText: buildScanResultType(),
+      ),
+      enableInteractiveSelection: false,
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        scanBarcode();
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter barcode';
+        }
+        return null;
+      },
+    );
+  }
+
+  String buildScanResultType() {
+    if (_scanResult != null) {
+      return _scanResult.format.toString();
+    } else {
+      return "";
+    }
+  }
+
+  String formatSelectedDate() =>
+      DateFormat('yyyy / MM / dd').format(selectedDate);
 
   selectDate(BuildContext context) async {
     DateTime selected = await showDatePicker(
@@ -141,7 +166,15 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
     }
   }
 
-  /*
+  void scanBarcode() async {
+    var result = await BarcodeScanner.scan();
+    setState(() {
+      _scanResult = result;
+      codeTextController.text = _scanResult.rawContent;
+    });
+  }
+
+/*
   Column scanResultWidget(BuildContext context) {
     return Column(
       children: <Widget>[
