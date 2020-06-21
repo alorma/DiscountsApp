@@ -1,37 +1,21 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'ticket.g.dart';
+
+@JsonSerializable()
 class Ticket {
-  final String id;
-  final String store;
-  final String conditions;
-  final String discountAmount;
-  final String discountType;
-  final String barcodeType;
-  final String barcodeCode;
-  final DateTime expireDate;
+  String id;
+  String store;
+  String conditions;
+  String discountAmount;
+  String discountType;
+  String barcodeType;
+  String barcodeCode;
+  DateTime expireDate;
 
-  Ticket({
-    this.id,
-    this.store,
-    this.conditions,
-    this.discountAmount,
-    this.discountType,
-    this.barcodeType,
-    this.barcodeCode,
-    this.expireDate,
-  });
+  Ticket();
 
-  factory Ticket.fromJson(Map<String, dynamic> json) {
-    var date = DateTime.fromMillisecondsSinceEpoch(
-      json['expireDate']['_seconds'] * 1000,
-    );
-    return Ticket(
-      id: json['id'],
-      store: json['store'],
-      conditions: json['conditions'],
-      discountAmount: json['discountAmount'],
-      discountType: json['discountType'],
-      barcodeType: json['barcodeType'],
-      barcodeCode: json['barcodeCode'],
-      expireDate: date
-    );
-  }
+  factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TicketToJson(this);
 }

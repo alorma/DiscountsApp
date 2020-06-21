@@ -1,8 +1,9 @@
-import 'dart:convert';
-
+import 'package:app/bloc/ticket/ticket_bloc.dart';
+import 'package:app/bloc/ticket/ticket_event.dart';
+import 'package:app/bloc/ticket/ticket_state.dart';
 import 'package:app/icons/icons.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'models/ticket.dart';
@@ -17,12 +18,11 @@ class TicketListScreen extends StatefulWidget {
 }
 
 class TicketListScreenState extends State<TicketListScreen> {
-  Future<List<Ticket>> futureTickets;
-
   @override
   void initState() {
+    BlocProvider.of<TicketBloc>(context)
+        .add(AllTicketsRequested("PRmjpHIMw60GhKXmviDy"));
     super.initState();
-    futureTickets = _fetchTickets('PRmjpHIMw60GhKXmviDy');
   }
 
   @override
@@ -45,24 +45,24 @@ class TicketListScreenState extends State<TicketListScreen> {
   }
 
   Widget _getList() {
-    return FutureBuilder(
-      future: futureTickets,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return _ticketsContent(snapshot);
-        } else if (snapshot.hasError) {
-          return _ticketsError(snapshot);
+    return BlocBuilder<TicketBloc, TicketState>(
+      builder: (context, ticketState) {
+        if (ticketState is AllTicketsLoaded) {
+          return _ticketsContent(ticketState.tickets);
+        } else if (ticketState is Failure) {
+          return _ticketsError((ticketState).error);
+        } else {
+          return CircularProgressIndicator();
         }
-        return CircularProgressIndicator();
       },
     );
   }
 
-  ListView _ticketsContent(AsyncSnapshot snapshot) {
+  ListView _ticketsContent(List<Ticket> tickets) {
     return ListView.builder(
-      itemCount: snapshot.data.length,
+      itemCount: tickets.length,
       itemBuilder: (ctx, index) {
-        var ticket = snapshot.data[index] as Ticket;
+        var ticket = tickets[index];
         var dateFormat = DateFormat('dd-MM-yyyy');
         var discountSymbol;
         if (ticket.discountType == 'discount') {
@@ -103,34 +103,5 @@ class TicketListScreenState extends State<TicketListScreen> {
     );
   }
 
-  Text _ticketsError(AsyncSnapshot snapshot) => Text("${snapshot.error}");
-
-  Future<List<Ticket>> _fetchTickets(String groupId) async {
-    return _doNetRequest(groupId)
-        .then((response) => _parseResponse(response))
-        .then((value) => _parseTickets(value))
-        .catchError((e) {});
-  }
-
-  Future<http.Response> _doNetRequest(String groupId) {
-    return http.get(
-      'https://us-central1-discounts-31e10.cloudfunctions.net/widgets/group/$groupId/discounts',
-    );
-  }
-
-  Future<dynamic> _parseResponse(http.Response response) async {
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      return List<Ticket>();
-    }
-  }
-
-  Future<List<Ticket>> _parseTickets(data) async {
-    List<Ticket> listModel = [];
-    for (Map i in data) {
-      listModel.add(Ticket.fromJson(i));
-    }
-    return listModel;
-  }
+  Text _ticketsError(String error) => Text("error");
 }
