@@ -1,6 +1,9 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
+enum DiscountType { discount, amount }
 
 class CreateTicketScreen extends StatefulWidget {
   CreateTicketScreen({Key key}) : super(key: key);
@@ -10,17 +13,20 @@ class CreateTicketScreen extends StatefulWidget {
 }
 
 class CreateTicketScreenState extends State<CreateTicketScreen> {
+  DiscountType _discountType;
   DateTime selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
   ScanResult _scanResult;
 
-  var dateTextController = TextEditingController();
   var codeTextController = TextEditingController();
+  var dateTextController = TextEditingController();
+  var amountTextController = TextEditingController();
 
   @override
   void initState() {
-    dateTextController.text = formatSelectedDate();
+    dateTextController.text = "";
     codeTextController.text = "";
+    amountTextController.text = "";
     super.initState();
   }
 
@@ -61,9 +67,20 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
             buildFormSpace(8),
             buildTitleTextField(),
             buildFormSpace(16),
-            buildExpireTextField(context),
-            buildFormSpace(16),
             buildBarcodeTextField(context),
+            buildFormSpace(8),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: buildAmountTextField(context),
+                ),
+                Expanded(
+                  child: buildAmountTypeField(context),
+                ),
+              ],
+            ),
+            buildFormSpace(16),
+            buildExpireTextField(context),
           ],
         ),
       ),
@@ -77,9 +94,7 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
   }
 
   Widget buildFormSpace(double space) {
-    return Padding(
-      padding: EdgeInsets.all(space),
-    );
+    return SizedBox(height: space);
   }
 
   Widget buildTitleTextField() {
@@ -94,6 +109,81 @@ class CreateTicketScreenState extends State<CreateTicketScreen> {
         }
         return null;
       },
+    );
+  }
+
+  Widget buildAmountTextField(BuildContext context) {
+    var label = "Select an option";
+    if (_discountType == DiscountType.amount) {
+      label = "Amount";
+    } else if (_discountType == DiscountType.discount) {
+      label = "Discount";
+    }
+
+    var suffix;
+    if (_discountType == DiscountType.amount) {
+      suffix = "€";
+    } else if (_discountType == DiscountType.discount) {
+      suffix = "%";
+    }
+
+    var enabled = _discountType != null;
+
+    return TextFormField(
+      controller: amountTextController,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+        suffixText: suffix,
+      ),
+      textAlign: TextAlign.end,
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly,
+      ],
+      enableInteractiveSelection: enabled,
+      onTap: () {
+        if (!enabled) {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        }
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter value';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget buildAmountTypeField(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('Amount'),
+          leading: Radio(
+            value: DiscountType.amount,
+            groupValue: _discountType,
+            onChanged: (DiscountType value) {
+              setState(() {
+                _discountType = value;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('Discount'),
+          leading: Radio(
+            value: DiscountType.discount,
+            groupValue: _discountType,
+            onChanged: (DiscountType value) {
+              setState(() {
+                _discountType = value;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 
