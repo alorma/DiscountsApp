@@ -70,38 +70,119 @@ class TicketListScreenState extends State<TicketListScreen> {
         } else {
           discountSymbol = Icons.euro_symbol;
         }
-        return Card(
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: <Widget>[
-                Text(ticket.barcodeCode),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      discountSymbol,
-                      size: 16,
-                    ),
-                    Text(ticket.discountAmount)
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.access_time,
-                      size: 16,
-                    ),
-                    Text(dateFormat.format(ticket.expireDate))
-                  ],
-                )
-              ],
-            ),
-          ),
-          margin: EdgeInsets.all(4),
-        );
+        return createTicketCard(ctx, ticket, discountSymbol, dateFormat);
       },
     );
   }
 
+  Widget createTicketCard(
+    BuildContext context,
+    Ticket ticket,
+    discountSymbol,
+    DateFormat dateFormat,
+  ) {
+    return Card(
+      shape: ticketItemShape(),
+      child: InkWell(
+        borderRadius: ticketItemShapeRadius(),
+        onTap: () {
+          openTicketDetail(context, ticket);
+        },
+        child: detailCardContent(ticket, discountSymbol, dateFormat),
+      ),
+      margin: EdgeInsets.all(4),
+    );
+  }
+
+  ShapeBorder ticketItemShape() {
+    return RoundedRectangleBorder(borderRadius: ticketItemShapeRadius());
+  }
+
+  BorderRadius ticketItemShapeRadius() =>
+      BorderRadius.only(topRight: Radius.circular(10));
+
+  Padding detailCardContent(
+      Ticket ticket, discountSymbol, DateFormat dateFormat) {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        children: <Widget>[
+          Text(ticket.barcodeCode),
+          Row(
+            children: <Widget>[
+              Icon(
+                discountSymbol,
+                size: 16,
+              ),
+              Text(ticket.discountAmount)
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.access_time,
+                size: 16,
+              ),
+              Text(dateFormat.format(ticket.expireDate))
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  void openTicketDetail(BuildContext context, Ticket ticket) {
+    showModalBottomSheet(
+      context: context,
+      shape: detailShape(),
+      builder: (builderContext) => buildDetailBottomSheet(builderContext),
+    );
+  }
+
+  ShapeBorder detailShape() {
+    return RoundedRectangleBorder(
+      borderRadius: detailShapeRadius(),
+    );
+  }
+
+  BorderRadius detailShapeRadius() {
+    return BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      );
+  }
+
   Text _ticketsError(String error) => Text("error");
+
+  Widget buildDetailBottomSheet(BuildContext builderContext) {
+    return Container(
+      child: Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.photo_camera),
+            title: Text('Camera'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.photo_library),
+            title: Text('Select'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.delete),
+            title: Text('Delete'),
+            onTap: () {},
+          ),
+          Divider(),
+          if (true)
+            ListTile(
+              title: Text('Cancel'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+        ],
+      ),
+    );
+  }
 }
